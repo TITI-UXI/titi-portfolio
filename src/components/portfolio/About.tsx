@@ -11,7 +11,7 @@ export function About() {
         <p className="eyebrow mb-10 text-inverse-muted">About</p>
 
         <p className="max-w-4xl text-2xl font-medium leading-snug tracking-tight sm:text-4xl">
-          I'm Tina — a developer who treats code like a craft. I build fast,
+          I'm Iman Amanin — a developer who treats code like a craft. I build fast,
           precise interfaces for studios and founders who care about the last
           5%: the easing curve, the kerning, the detail nobody names but
           everybody feels.
