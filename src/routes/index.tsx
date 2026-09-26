@@ -1,17 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-// Import new interactive components from Claude
+// Direct relative imports to prevent Vite alias resolution issues
 // @ts-ignore
-import Navbar from "@/components/portfolio/Navbar";
+import Navbar from "../components/portfolio/Navbar";
 // @ts-ignore
-import Hero from "@/components/portfolio/Hero";
+import Hero from "../components/portfolio/Hero";
 // @ts-ignore
-import ProjectsStack from "@/components/portfolio/ProjectsStack";
+import ProjectsStack from "../components/portfolio/ProjectsStack";
 // @ts-ignore
-import Footer from "@/components/portfolio/Footer";
+import Footer from "../components/portfolio/Footer";
 
 // Existing sections
-import { About } from "@/components/portfolio/About";
+import { About } from "../components/portfolio/About";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -38,10 +38,10 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <main className="min-h-screen bg-canvas text-foreground overflow-x-hidden selection:bg-black selection:text-white">
-      {/* Floating Pill Navbar (Aceternity style) */}
+      {/* Floating Pill Navbar */}
       <Navbar />
 
-      {/* Hero section with Scroll Entrance & Marquee */}
+      {/* Hero section */}
       <Hero />
 
       {/* About Section */}
