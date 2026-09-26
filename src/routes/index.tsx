@@ -1,9 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Header } from "@/components/portfolio/Header";
-import { Hero } from "@/components/portfolio/Hero";
-import { RecentWork } from "@/components/portfolio/RecentWork";
+
+// Import new interactive components from Claude
+// @ts-ignore
+import Navbar from "@/components/portfolio/Navbar";
+// @ts-ignore
+import Hero from "@/components/portfolio/Hero";
+// @ts-ignore
+import ProjectsStack from "@/components/portfolio/ProjectsStack";
+// @ts-ignore
+import Footer from "@/components/portfolio/Footer";
+
+// Existing sections
 import { About } from "@/components/portfolio/About";
-import { Footer } from "@/components/portfolio/Footer";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -29,11 +37,20 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   return (
-    <main className="min-h-screen bg-canvas text-foreground">
-      <Header />
+    <main className="min-h-screen bg-canvas text-foreground overflow-x-hidden selection:bg-black selection:text-white">
+      {/* Floating Pill Navbar (Aceternity style) */}
+      <Navbar />
+
+      {/* Hero section with Scroll Entrance & Marquee */}
       <Hero />
+
+      {/* About Section */}
       <About />
-      <RecentWork />
+
+      {/* Interactive Stacking Projects Portfolio */}
+      <ProjectsStack />
+
+      {/* Signature Curved Reveal Footer */}
       <Footer />
     </main>
   );
