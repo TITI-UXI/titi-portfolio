@@ -1,18 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
-
-// ایمپورت ماژولار و ایمن کامپوننت‌ها
-import * as NavbarModule from "../components/portfolio/Navbar";
-import * as HeroModule from "../components/portfolio/Hero";
-import * as ProjectsStackModule from "../components/portfolio/ProjectsStack";
-import * as FooterModule from "../components/portfolio/Footer";
-import * as AboutModule from "../components/portfolio/About";
-
-// استخراج کامپوننت‌ها چه با Named Export باشند چه با Default Export
-const Navbar = (NavbarModule as any).Navbar || (NavbarModule as any).default;
-const Hero = (HeroModule as any).Hero || (HeroModule as any).default;
-const ProjectsStack = (ProjectsStackModule as any).ProjectsStack || (ProjectsStackModule as any).default;
-const Footer = (FooterModule as any).Footer || (FooterModule as any).default;
-const About = (AboutModule as any).About || (AboutModule as any).default;
+import { Header } from "@/components/portfolio/Header";
+import { Hero } from "@/components/portfolio/Hero";
+import { RecentWork } from "@/components/portfolio/RecentWork";
+import { About } from "@/components/portfolio/About";
+import { Footer } from "@/components/portfolio/Footer";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -38,13 +29,12 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   return (
-    <main className="min-h-screen bg-canvas text-foreground overflow-x-hidden selection:bg-black selection:text-white">
-      {/* رندر شرطی ایمن کامپوننت‌ها */}
-      {Navbar && <Navbar />}
-      {Hero && <Hero />}
-      {About && <About />}
-      {ProjectsStack && <ProjectsStack />}
-      {Footer && <Footer />}
+    <main className="min-h-screen bg-canvas text-foreground">
+      <Header />
+      <Hero />
+      <About />
+      <RecentWork />
+      <Footer />
     </main>
   );
 }
