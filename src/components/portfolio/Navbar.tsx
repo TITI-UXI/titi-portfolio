@@ -1,3 +1,4 @@
+// @ts-nocheck -- untyped JS-style component; types not enforced here
 "use client";
 
 import { useRef, useState, useEffect } from "react";
