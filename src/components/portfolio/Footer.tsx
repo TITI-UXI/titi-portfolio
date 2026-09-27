@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import ScrollVelocityMarquee from "./ScrollVelocityMarquee";
-import CurvedReveal from "./CurvedReveal";
-import MagneticButton from "./MagneticButton";
+import ScrollVelocityMarquee from "@/components/motion/ScrollVelocityMarquee";
+import CurvedReveal from "@/components/motion/CurvedReveal";
+import MagneticButton from "@/components/motion/MagneticButton";
 
 const CONTACT_CHANNELS = [
   { label: "Email", value: "hello@imanamanin.com", href: "mailto:hello@imanamanin.com" },
