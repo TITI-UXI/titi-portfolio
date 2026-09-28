@@ -93,6 +93,7 @@ export function HeroMask() {
   }, []);
 
   return (
+    <div>
     <section ref={root} className="relative h-svh w-full overflow-hidden bg-inverse">
       <div
         ref={stage}
@@ -114,5 +115,6 @@ export function HeroMask() {
         </div>
       </div>
     </section>
+    </div>
   );
 }
