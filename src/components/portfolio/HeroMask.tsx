@@ -51,12 +51,17 @@ function ScrambledText({ text, className }: { text: string; className?: string }
   );
 }
 
+// Temporarily disabled: hero renders fully revealed with no pin/mask.
+// Set back to true to restore the scroll-driven portal entrance.
+const ENABLE_SCROLL_MASK = false;
+
 export function HeroMask() {
   const root = useRef<HTMLElement>(null);
   const stage = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
+    if (!ENABLE_SCROLL_MASK) return; // skip pin + mask; hero is visible by default
     const section = root.current;
     const hero = stage.current;
     if (!section || !hero) return;
@@ -97,7 +102,7 @@ export function HeroMask() {
     <section ref={root} className="relative h-svh w-full overflow-hidden bg-inverse">
       <div
         ref={stage}
-        className="portal-mask absolute inset-0 bg-inverse text-inverse-foreground"
+        className={`absolute inset-0 bg-inverse text-inverse-foreground ${ENABLE_SCROLL_MASK ? "portal-mask" : ""}`}
       >
         <img
           src="/portrait.jpg"
