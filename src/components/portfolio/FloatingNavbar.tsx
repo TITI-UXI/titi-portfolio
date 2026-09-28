@@ -147,7 +147,7 @@ export function FloatingNavbar() {
       {/* Brand mark — back to top */}
       <MagneticItem className="hidden sm:inline-block">
         <TransitionLink
-          href="#top"
+          href="/"
           label="Home"
           aria-label="TINA — back to top"
           className="flex h-9 w-9 items-center justify-center rounded-full text-xs font-semibold tracking-tight transition-colors hover:bg-inverse-foreground/10"
