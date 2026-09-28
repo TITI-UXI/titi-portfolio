@@ -46,6 +46,8 @@
   --color-inverse-foreground: var(--inverse-foreground);
   --color-inverse-muted: var(--inverse-muted);
   --color-inverse-border: var(--inverse-border);
+  --color-transition-canvas: var(--transition-canvas);
+  --color-transition-foreground: var(--transition-foreground);
   --font-sans: "Archivo", ui-sans-serif, system-ui, sans-serif;
 }
 
@@ -83,6 +85,8 @@
   --inverse-foreground: oklch(0.9 0.014 300);
   --inverse-muted: oklch(0.9 0.014 300 / 55%);
   --inverse-border: oklch(0.9 0.014 300 / 14%);
+  --transition-canvas: #141516;
+  --transition-foreground: #ffffff;
 }
 
 .dark {
@@ -115,6 +119,8 @@
   --inverse-foreground: oklch(0.155 0.012 285);
   --inverse-muted: oklch(0.155 0.012 285 / 55%);
   --inverse-border: oklch(0.155 0.012 285 / 14%);
+  --transition-canvas: #141516;
+  --transition-foreground: #ffffff;
 }
 
 @layer base {

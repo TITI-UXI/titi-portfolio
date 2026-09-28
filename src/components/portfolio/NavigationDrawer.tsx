@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, type MouseEvent, type ReactNode } from "re
 import { AnimatePresence, motion, useMotionValue, useReducedMotion, useSpring } from "framer-motion";
 import { useRouterState } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
-import { TransitionLink } from "@/components/portfolio/PageTransition";
+import { TransitionLink } from "@/components/portfolio/CurvedTransition";
 
 const LINKS = [
   { label: "Home", to: "/" },

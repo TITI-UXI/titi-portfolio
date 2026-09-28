@@ -12,7 +12,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SmoothScroll } from "@/components/motion/SmoothScroll";
 import { Cursor } from "@/components/motion/Cursor";
-import { PageTransition, TransitionLink } from "@/components/portfolio/PageTransition";
+import { CurvedTransition, TransitionLink } from "@/components/portfolio/CurvedTransition";
 import { NavigationDrawer } from "@/components/portfolio/NavigationDrawer";
 
 function NotFoundComponent() {
@@ -147,7 +147,7 @@ function RootComponent() {
       </SmoothScroll>
       <NavigationDrawer />
       <Cursor />
-      <PageTransition />
+      <CurvedTransition />
     </QueryClientProvider>
   );
 }
