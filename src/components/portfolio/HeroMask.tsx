@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { PRELOADER_COMPLETE_EVENT } from "./Preloader";
 const GLYPHS = "!<>-_\\/[]{}—=+*^?#01ABCDEFXYZ";
 
 function ScrambledText({ text, className }: { text: string; className?: string }) {
@@ -78,7 +79,17 @@ export function HeroMask() {
         })
         .to(hero, { "--portal-radius": "150vw", ease: "none" });
     }, root);
-    return () => ctx.revert();
+
+    const activateHero = () => {
+      window.scrollTo(0, 0);
+      ScrollTrigger.refresh();
+    };
+    window.addEventListener(PRELOADER_COMPLETE_EVENT, activateHero);
+
+    return () => {
+      window.removeEventListener(PRELOADER_COMPLETE_EVENT, activateHero);
+      ctx.revert();
+    };
   }, []);
 
   return (
