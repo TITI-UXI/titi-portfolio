@@ -1,12 +1,14 @@
 import { useEffect, useRef, useState, type MouseEvent, type ReactNode } from "react";
 import { AnimatePresence, motion, useMotionValue, useReducedMotion, useSpring } from "framer-motion";
+import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
+import { playTransition } from "@/components/motion/PageTransition";
 
 const LINKS = [
-  { id: "top", label: "Home", href: "#top" },
-  { id: "work", label: "Work", href: "#work" },
-  { id: "about", label: "About", href: "#about" },
-  { id: "contact", label: "Contact", href: "#contact" },
+  { label: "Home", to: "/" },
+  { label: "Work", to: "/work" },
+  { label: "About", to: "/about" },
+  { label: "Contact", to: "/contact" },
 ] as const;
 
 const SOCIALS = [
@@ -16,7 +18,6 @@ const SOCIALS = [
   { label: "WhatsApp", href: "https://wa.me/" },
 ] as const;
 
-type SectionId = (typeof LINKS)[number]["id"];
 
 function MagneticItem({ children, strength = 0.22 }: { children: ReactNode; strength?: number }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -47,24 +48,10 @@ function MagneticItem({ children, strength = 0.22 }: { children: ReactNode; stre
 
 export function NavigationDrawer() {
   const [open, setOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState<SectionId>("top");
+  const navigate = useNavigate();
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
   const reduceMotion = useReducedMotion();
   const closeButtonRef = useRef<HTMLButtonElement>(null);
-
-  useEffect(() => {
-    const sections = LINKS.map((link) => document.getElementById(link.id)).filter(
-      (section): section is HTMLElement => section !== null,
-    );
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries.find((entry) => entry.isIntersecting);
-        if (visible) setActiveSection(visible.target.id as SectionId);
-      },
-      { rootMargin: "-40% 0px -55% 0px", threshold: 0 },
-    );
-    sections.forEach((section) => observer.observe(section));
-    return () => observer.disconnect();
-  }, []);
 
   useEffect(() => {
     if (!open) return;
@@ -161,22 +148,29 @@ export function NavigationDrawer() {
                 <ul>
                   {LINKS.map((link, index) => (
                     <motion.li
-                      key={link.id}
+                      key={link.to}
                       variants={{ closed: { opacity: 0, x: 48 }, open: { opacity: 1, x: 0 } }}
                       transition={{ delay: reduceMotion ? 0 : 0.18 + index * 0.07, duration: 0.45 }}
                     >
                       <MagneticItem>
-                        <a
-                          href={link.href}
-                          onClick={() => setOpen(false)}
+                        <Link
+                          to={link.to}
+                          onClick={(event) => {
+                            event.preventDefault();
+                            setOpen(false);
+                            if (pathname === link.to) return;
+                            void playTransition(() => {
+                              void navigate({ to: link.to });
+                            });
+                          }}
                           className="group flex items-center gap-4 py-1 text-[clamp(2.7rem,7vw,6.5rem)] font-semibold uppercase leading-[0.95]"
                         >
                           <span
                             aria-hidden
-                            className={`h-2 w-2 shrink-0 rounded-full bg-inverse-foreground transition-opacity ${activeSection === link.id ? "opacity-100" : "opacity-0 group-hover:opacity-40"}`}
+                            className={`h-2 w-2 shrink-0 rounded-full bg-inverse-foreground transition-opacity ${pathname === link.to ? "opacity-100" : "opacity-0 group-hover:opacity-40"}`}
                           />
                           <span className="transition-opacity group-hover:opacity-60">{link.label}</span>
-                        </a>
+                        </Link>
                       </MagneticItem>
                     </motion.li>
                   ))}
