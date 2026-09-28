@@ -2,6 +2,10 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
 const NAME = "Zahra Alizadeh — ";
 
 function Globe() {
@@ -20,30 +24,38 @@ function DirectionalSlider() {
   useEffect(() => {
     const el = track.current;
     if (!el) return;
-    gsap.registerPlugin(ScrollTrigger);
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    // Two identical halves: loop xPercent 0 → -50.
-    const tween = gsap.fromTo(el, { xPercent: 0 }, { xPercent: -50, duration: 24, ease: "none", repeat: -1 });
-    if (reduce) {
-      tween.timeScale(0.3);
-      return () => { tween.kill(); };
-    }
+
+    const wrap = gsap.utils.wrap(-50, 0);
+    let xPercent = 0;
     let direction = 1;
+    let speed = 0.018;
+    let velocityBoost = 0;
+    let frame = 0;
+
+    const tick = () => {
+      velocityBoost *= 0.94;
+      const targetSpeed = direction * (0.018 + velocityBoost);
+      speed += (targetSpeed - speed) * 0.075;
+      xPercent = wrap(xPercent - speed);
+      gsap.set(el, { xPercent });
+      frame = window.requestAnimationFrame(tick);
+    };
+
     const st = ScrollTrigger.create({
       start: 0,
       end: "max",
       onUpdate: (self) => {
-        direction = self.direction; // 1 = down → left, -1 = up → right
-        const boost = Math.min(Math.abs(self.getVelocity()) / 300, 5);
-        gsap.to(tween, {
-          timeScale: direction * (1 + boost),
-          duration: 0.2,
-          overwrite: true,
-          onComplete: () => { gsap.to(tween, { timeScale: direction, duration: 0.8, ease: "power2.out" }); },
-        });
+        direction = self.direction >= 0 ? 1 : -1;
+        velocityBoost = Math.min(Math.abs(self.getVelocity()) / 12000, 0.22);
       },
     });
-    return () => { st.kill(); tween.kill(); };
+
+    frame = window.requestAnimationFrame(tick);
+
+    return () => {
+      window.cancelAnimationFrame(frame);
+      st.kill();
+    };
   }, []);
 
   const half = (
@@ -53,8 +65,8 @@ function DirectionalSlider() {
   );
 
   return (
-    <div className="pointer-events-none relative z-20 overflow-hidden" aria-label="Zahra Alizadeh">
-      <div ref={track} aria-hidden className="flex w-max whitespace-nowrap text-[15vw] font-medium leading-none tracking-tight text-hero-foreground md:text-[13vw]">
+    <div className="pointer-events-none absolute bottom-4 z-20 w-full overflow-hidden md:bottom-8" aria-label="Zahra Alizadeh">
+      <div ref={track} aria-hidden className="flex w-max whitespace-nowrap text-[16vw] font-medium leading-none tracking-tighter text-hero-foreground will-change-transform">
         {half}
         {half}
       </div>
@@ -70,7 +82,7 @@ export function HeroMask() {
       <img
         src="/portrait.jpg"
         alt="Portrait of Tina"
-        className="pointer-events-none absolute bottom-0 left-1/2 z-10 w-full max-w-[420px] -translate-x-1/2 select-none object-contain md:max-w-[480px]"
+        className="pointer-events-none absolute bottom-0 left-1/2 z-10 mx-auto h-[72vh] max-h-[750px] w-[480px] max-w-none -translate-x-1/2 select-none object-cover object-top lg:w-[560px]"
       />
 
       <div className="relative z-20 flex flex-col gap-10 md:flex-row md:items-center md:justify-between">
