@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState, type MouseEvent, type ReactNode } from "react";
 import { AnimatePresence, motion, useMotionValue, useReducedMotion, useSpring } from "framer-motion";
-import { Link, useRouterState } from "@tanstack/react-router";
+import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
+import { playTransition } from "@/components/motion/PageTransition";
 
 const LINKS = [
   { label: "Home", to: "/" },
@@ -47,6 +48,7 @@ function MagneticItem({ children, strength = 0.22 }: { children: ReactNode; stre
 
 export function NavigationDrawer() {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const reduceMotion = useReducedMotion();
   const closeButtonRef = useRef<HTMLButtonElement>(null);
@@ -153,7 +155,14 @@ export function NavigationDrawer() {
                       <MagneticItem>
                         <Link
                           to={link.to}
-                          onClick={() => setOpen(false)}
+                          onClick={(event) => {
+                            event.preventDefault();
+                            setOpen(false);
+                            if (pathname === link.to) return;
+                            void playTransition(() => {
+                              void navigate({ to: link.to });
+                            });
+                          }}
                           className="group flex items-center gap-4 py-1 text-[clamp(2.7rem,7vw,6.5rem)] font-semibold uppercase leading-[0.95]"
                         >
                           <span
