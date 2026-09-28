@@ -17,7 +17,6 @@ const SOCIALS = [
   { label: "WhatsApp", href: "https://wa.me/" },
 ] as const;
 
-type SectionId = (typeof LINKS)[number]["id"];
 
 function MagneticItem({ children, strength = 0.22 }: { children: ReactNode; strength?: number }) {
   const ref = useRef<HTMLDivElement>(null);
