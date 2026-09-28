@@ -17,7 +17,7 @@ const NAV_LINKS = [
 
 type SectionId = (typeof NAV_LINKS)[number]["id"];
 
-const CONTACT_EMAIL = "hello@imanamanin.com";
+const CONTACT_EMAIL = "titi.uxui@gmail.com";
 
 /** Scroll distance (px) below which the navbar is always shown. */
 const TOP_THRESHOLD = 80;
@@ -147,10 +147,10 @@ export function FloatingNavbar() {
       <MagneticItem className="hidden sm:inline-block">
         <a
           href="#top"
-          aria-label="Iman Amanin — back to top"
+          aria-label="TINA — back to top"
           className="flex h-9 w-9 items-center justify-center rounded-full text-xs font-semibold tracking-tight transition-colors hover:bg-inverse-foreground/10"
         >
-          IA
+          T
         </a>
       </MagneticItem>
 

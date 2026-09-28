@@ -9,7 +9,7 @@ import {
 } from "framer-motion";
 
 const STATEMENT =
-  "I'm Iman Amanin — a developer who treats code like a craft. I build fast, precise interfaces for studios and founders who care about the last 5%: the easing curve, the kerning, the detail nobody names but everybody feels.";
+  "I'm TINA — a developer who treats code like a craft. I build fast, precise interfaces for studios and founders who care about the last 5%: the easing curve, the kerning, the detail nobody names but everybody feels.";
 
 const metrics = [
   { value: 5, suffix: "+", label: "Years of Multidisciplinary Craft" },

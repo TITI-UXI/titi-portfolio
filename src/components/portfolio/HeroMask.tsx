@@ -1,8 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import portrait from "@/assets/portrait.jpg";
-
 const GLYPHS = "!<>-_\\/[]{}—=+*^?#01ABCDEFXYZ";
 
 function ScrambledText({ text, className }: { text: string; className?: string }) {
@@ -55,58 +53,49 @@ function ScrambledText({ text, className }: { text: string; className?: string }
 export function HeroMask() {
   const root = useRef<HTMLElement>(null);
   const stage = useRef<HTMLDivElement>(null);
-  const hint = useRef<HTMLParagraphElement>(null);
 
   useEffect(() => {
-    if (typeof window === "undefined" || !root.current) return;
+    if (typeof window === "undefined") return;
+    const section = root.current;
+    const hero = stage.current;
+    if (!section || !hero) return;
+
     gsap.registerPlugin(ScrollTrigger);
     const ctx = gsap.context(() => {
-      gsap.set(stage.current, { clipPath: "circle(6% at 50% 50%)" });
+      gsap.set(hero, { "--portal-radius": "0vw" });
       gsap
         .timeline({
           scrollTrigger: {
-            trigger: root.current,
+            trigger: section,
             start: "top top",
-            end: "+=120%",
-            scrub: 0.8,
+            end: "+=1200",
+            scrub: 1,
             pin: true,
+            pinSpacing: true,
             anticipatePin: 1,
+            invalidateOnRefresh: true,
           },
         })
-        .to(stage.current, { clipPath: "circle(75% at 50% 50%)", ease: "power2.inOut" })
-        .to(hint.current, { opacity: 0, y: -20, ease: "none" }, 0);
+        .to(hero, { "--portal-radius": "150vw", ease: "none" });
     }, root);
     return () => ctx.revert();
   }, []);
 
   return (
-    <section ref={root} className="relative h-svh w-full overflow-hidden bg-canvas">
-      <p
-        ref={hint}
-        className="eyebrow absolute inset-x-0 bottom-10 z-10 text-center text-ink-soft"
-      >
-        Scroll to enter
-      </p>
-
-      {/* Full reveal by default (no-JS fallback); GSAP sets the tight mask on mount */}
+    <section ref={root} className="relative h-svh w-full overflow-hidden bg-inverse">
       <div
         ref={stage}
-        className="absolute inset-0 bg-inverse text-inverse-foreground"
-        style={{ willChange: "clip-path" }}
+        className="portal-mask absolute inset-0 bg-inverse text-inverse-foreground"
       >
         <img
-          src={portrait}
-          alt="Portrait of Iman Amanin"
+          src="/portrait.jpg"
+          alt="Portrait of TINA"
           className="absolute inset-0 h-full w-full object-cover opacity-60 grayscale"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-inverse via-inverse/40 to-transparent" />
         <div className="relative mx-auto flex h-full max-w-7xl flex-col justify-end px-4 pb-16 sm:px-6">
           <p className="eyebrow mb-6 opacity-70">Rasht, Iran — Available Worldwide</p>
-          <h1 className="display-xl uppercase">
-            Iman
-            <br />
-            Amanin
-          </h1>
+          <h1 className="display-xl uppercase">TINA</h1>
           <ScrambledText
             text="Creative Developer & Multidisciplinary Designer"
             className="mt-6 block font-mono text-sm uppercase tracking-widest opacity-80 sm:text-base"

@@ -11,13 +11,13 @@ import { Footer } from "@/components/portfolio/Footer";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Iman Amanin — Creative Developer & Multidisciplinary Designer" },
+      { title: "TINA — Creative Developer & Multidisciplinary Designer" },
       {
         name: "description",
         content:
           "Freelance creative developer crafting fast, precise digital experiences. Selected work, about, and contact.",
       },
-      { property: "og:title", content: "Iman Amanin — Creative Developer & Multidisciplinary Designer" },
+      { property: "og:title", content: "TINA — Creative Developer & Multidisciplinary Designer" },
       {
         property: "og:description",
         content:

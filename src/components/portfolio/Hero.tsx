@@ -23,7 +23,7 @@ export function Hero() {
 
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6">
         <div className="mt-6 flex flex-col justify-between gap-6 border-t border-border pt-6 text-sm font-medium text-ink-soft sm:flex-row">
-          <p>Iman Amanin — Creative Developer & Multidisciplinary Designer.</p>
+          <p>TINA — Creative Developer & Multidisciplinary Designer.</p>
           <p>Rasht, Iran — Available Worldwide</p>
         </div>
       </div>
