@@ -7,6 +7,7 @@ import { About } from "@/components/portfolio/About";
 import { Services } from "@/components/portfolio/Services";
 import { ProjectsStack } from "@/components/portfolio/ProjectsStack";
 import { Footer } from "@/components/portfolio/Footer";
+import { Preloader } from "@/components/portfolio/Preloader";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -33,6 +34,7 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <main id="top" className="min-h-screen bg-canvas text-foreground">
+      <Preloader />
       <FloatingNavbar />
       <HeroMask />
       <Hero />
