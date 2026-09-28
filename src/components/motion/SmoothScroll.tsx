@@ -2,6 +2,7 @@ import { useEffect, type ReactNode } from "react";
 import Lenis from "lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { playTransition } from "./PageTransition";
 
 export function SmoothScroll({ children }: { children: ReactNode }) {
   useEffect(() => {
