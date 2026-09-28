@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Magnetic } from "@/components/motion/Magnetic";
+import { VelocityMarquee } from "./VelocityMarquee";
 
 function LocalTime() {
   const [time, setTime] = useState("");
@@ -57,7 +58,10 @@ export function Footer() {
         />
       </div>
 
-      <div className="mx-auto w-full max-w-7xl px-4 pb-10 pt-[18vw] sm:px-6">
+      <div className="pt-[14vw]">
+        <VelocityMarquee text="Available for freelance & collaborations — Iman Amanin — " />
+      </div>
+      <div className="mx-auto w-full max-w-7xl px-4 pb-10 pt-16 sm:px-6">
         <div className="flex items-center gap-5">
           <div className="h-14 w-14 shrink-0 rounded-full bg-inverse-border sm:h-20 sm:w-20" />
           <h2 className="display-lg">
