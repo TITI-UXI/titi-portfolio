@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Keep the scroll-mask portrait at `/portrait.jpg`; the hero uses a GSAP-driven CSS radial mask for a soft, SSR-safe reveal.
