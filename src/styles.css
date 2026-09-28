@@ -48,6 +48,10 @@
   --color-inverse-border: var(--inverse-border);
   --color-transition-canvas: var(--transition-canvas);
   --color-transition-foreground: var(--transition-foreground);
+  --color-hero: #141516;
+  --color-hero-foreground: #ffffff;
+  --color-hero-surface: #1e2022;
+  --color-hero-button: #26282b;
   --font-sans: "Archivo", ui-sans-serif, system-ui, sans-serif;
 }
 

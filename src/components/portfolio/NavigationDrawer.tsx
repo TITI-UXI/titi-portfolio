@@ -81,18 +81,18 @@ export function NavigationDrawer() {
             aria-controls="navigation-drawer"
             aria-label={open ? "Close menu" : "Open menu"}
             onClick={() => setOpen((current) => !current)}
-            className="relative h-14 w-14 rounded-full shadow-xl sm:h-16 sm:w-16"
+            className="relative h-14 w-14 rounded-full border border-hero-foreground/20 bg-hero-button text-hero-foreground shadow-2xl transition-all duration-300 hover:bg-hero-foreground hover:text-hero sm:h-16 sm:w-16"
           >
             <span className="sr-only">{open ? "Close menu" : "Open menu"}</span>
             <motion.span
               aria-hidden
-              className="absolute h-px w-5 bg-primary-foreground"
+              className="absolute h-[1.5px] w-6 bg-current"
               animate={open ? { rotate: 45, y: 0 } : { rotate: 0, y: -4 }}
               transition={{ duration: 0.25 }}
             />
             <motion.span
               aria-hidden
-              className="absolute h-px w-5 bg-primary-foreground"
+              className="absolute h-[1.5px] w-6 bg-current"
               animate={open ? { rotate: -45, y: 0 } : { rotate: 0, y: 4 }}
               transition={{ duration: 0.25 }}
             />
