@@ -65,8 +65,8 @@ function DirectionalSlider() {
   );
 
   return (
-    <div className="pointer-events-none absolute bottom-4 z-20 w-full overflow-hidden md:bottom-8" aria-label="Zahra Alizadeh">
-      <div ref={track} aria-hidden className="flex w-max whitespace-nowrap text-[16vw] font-medium leading-none tracking-tighter text-hero-foreground will-change-transform">
+    <div className="pointer-events-none absolute inset-x-0 bottom-2 z-20 w-full select-none overflow-hidden whitespace-nowrap md:bottom-6" aria-label="Zahra Alizadeh">
+      <div ref={track} aria-hidden className="flex w-max whitespace-nowrap text-[15vw] font-medium md:text-[13vw] leading-none tracking-tighter text-hero-foreground will-change-transform">
         {half}
         {half}
       </div>
@@ -76,26 +76,28 @@ function DirectionalSlider() {
 
 export function HeroMask() {
   return (
-    <section className="relative flex min-h-screen w-full flex-col justify-between overflow-hidden bg-hero pb-12 pt-8 text-hero-foreground">
-      <p className="relative z-20 px-8 text-sm font-medium md:px-16">© Code by Tina</p>
+    <section className="relative h-screen max-h-[1080px] min-h-[680px] w-full overflow-hidden bg-hero text-hero-foreground">
+      <p className="absolute left-8 top-8 z-30 text-sm tracking-wide text-hero-foreground/60 md:left-12">© Code by Tina</p>
 
-      <img
-        src="/portrait.jpg"
-        alt="Portrait of Tina"
-        className="pointer-events-none absolute bottom-0 left-1/2 z-10 mx-auto h-[72vh] max-h-[750px] w-[480px] max-w-none -translate-x-1/2 select-none object-cover object-top lg:w-[560px]"
-      />
+      <div className="pointer-events-none absolute bottom-0 left-1/2 z-10 flex h-[72vh] max-h-[700px] w-auto max-w-[500px] -translate-x-1/2 select-none items-end justify-center">
+        <img
+          src="/portrait.jpg"
+          alt="Portrait of Tina"
+          className="h-full w-full object-contain object-bottom"
+          style={{ maskImage: "linear-gradient(to bottom, black 85%, transparent 100%)", WebkitMaskImage: "linear-gradient(to bottom, black 85%, transparent 100%)" }}
+        />
+      </div>
 
-      <div className="relative z-20 flex flex-col gap-10 md:flex-row md:items-center md:justify-between">
-        <div className="flex w-fit items-center gap-3 rounded-r-full border border-hero-foreground/10 bg-hero-surface py-2.5 pl-8 pr-4 text-xs tracking-wide text-hero-foreground/75 md:pl-16">
-          <span className="leading-tight">Located<br />in Iran</span>
-          <span className="flex h-11 w-11 items-center justify-center rounded-full bg-hero-button text-hero-foreground">
-            <Globe />
-          </span>
-        </div>
-        <div className="px-8 md:px-16">
-          <span className="mb-2 block text-2xl text-hero-foreground/60" aria-hidden>↘</span>
-          <p className="text-2xl font-medium leading-tight md:text-3xl">Freelance<br />Designer &amp; Developer</p>
-        </div>
+      <div className="absolute left-0 top-[42%] z-30 flex -translate-y-1/2 items-center gap-3 rounded-r-full border-y border-r border-hero-foreground/10 bg-hero-surface py-3 pl-8 pr-4 text-xs tracking-wider text-hero-foreground/85 shadow-xl md:pl-12">
+        <span className="leading-tight">Located<br />in Iran</span>
+        <span className="flex h-11 w-11 items-center justify-center rounded-full bg-hero-button text-hero-foreground">
+          <Globe />
+        </span>
+      </div>
+
+      <div className="absolute right-8 top-[42%] z-30 flex -translate-y-1/2 flex-col items-end text-right md:right-16">
+        <span className="mb-1 text-2xl text-hero-foreground/60" aria-hidden>↘</span>
+        <p className="text-base font-light leading-snug text-hero-foreground/85 md:text-lg">Freelance<br />Designer &amp; Developer</p>
       </div>
 
       <DirectionalSlider />
