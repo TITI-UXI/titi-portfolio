@@ -14,6 +14,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SmoothScroll } from "@/components/motion/SmoothScroll";
 import { Cursor } from "@/components/motion/Cursor";
 import { PageTransition } from "@/components/motion/PageTransition";
+import { NavigationDrawer } from "@/components/portfolio/NavigationDrawer";
 
 function NotFoundComponent() {
   return (
@@ -143,6 +144,7 @@ function RootComponent() {
         {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
         <Outlet />
       </SmoothScroll>
+      <NavigationDrawer />
       <Cursor />
       <PageTransition />
     </QueryClientProvider>
