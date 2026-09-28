@@ -10,11 +10,11 @@ export function Hero() {
           Available Worldwide
         </p>
 
-        <h1 className="display-xl text-foreground">
+        <h2 className="display-xl text-foreground">
           Creative
           <br />
           Developer
-        </h1>
+        </h2>
       </div>
 
       <div className="mt-8">
