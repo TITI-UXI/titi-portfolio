@@ -59,7 +59,7 @@ export function Footer() {
       </div>
 
       <div className="pt-[14vw]">
-        <VelocityMarquee text="Available for freelance & collaborations — Iman Amanin — " />
+        <VelocityMarquee text="Available for freelance & collaborations — TINA — " />
       </div>
       <div className="mx-auto w-full max-w-7xl px-4 pb-10 pt-16 sm:px-6">
         <div className="flex items-center gap-5">
@@ -75,7 +75,7 @@ export function Footer() {
           <div className="absolute right-4 top-0 -translate-y-1/2 sm:right-16">
             <Magnetic strength={0.5}>
               <a
-                href="mailto:hello@imanamanin.com"
+                href="mailto:titi.uxui@gmail.com"
                 className="flex h-36 w-36 items-center justify-center rounded-full bg-primary text-center text-base font-medium text-primary-foreground ring-1 ring-inverse-border transition-transform hover:scale-105 sm:h-52 sm:w-52 sm:text-lg"
               >
                 Get in touch
@@ -85,22 +85,20 @@ export function Footer() {
         </div>
 
         <div className="mt-28 flex flex-wrap gap-3 sm:mt-32">
-          {["hello@imanamanin.com", "+98 000 000 0000"].map((c) => (
-            <Magnetic key={c}>
-              <a
-                href={c.includes("@") ? `mailto:${c}` : `tel:${c.replace(/\s/g, "")}`}
-                className="block rounded-full border border-inverse-border px-6 py-4 text-sm font-medium transition-colors hover:bg-inverse-border"
-              >
-                {c}
-              </a>
-            </Magnetic>
-          ))}
+          <Magnetic>
+            <a
+              href="mailto:titi.uxui@gmail.com"
+              className="block rounded-full border border-inverse-border px-6 py-4 text-sm font-medium transition-colors hover:bg-inverse-border"
+            >
+              titi.uxui@gmail.com
+            </a>
+          </Magnetic>
         </div>
 
         <div className="mt-24 grid gap-8 text-sm sm:grid-cols-3 sm:items-end">
           <div>
             <p className="eyebrow mb-2 text-inverse-muted">Version</p>
-            <p>2026 © Iman Amanin</p>
+            <p>2026 © TINA</p>
           </div>
           <div>
             <p className="eyebrow mb-2 text-inverse-muted">Local time</p>
@@ -111,10 +109,20 @@ export function Footer() {
           <div className="sm:text-right">
             <p className="eyebrow mb-2 text-inverse-muted">Socials</p>
             <div className="flex gap-5 sm:justify-end">
-              {["Instagram", "Dribbble", "GitHub", "LinkedIn"].map((s) => (
-                <Magnetic key={s}>
-                  <a href="#contact" className="block transition-opacity hover:opacity-70">
-                    {s}
+              {[
+                { label: "Instagram", href: "https://instagram.com/titi-uxi" },
+                { label: "Telegram", href: "https://t.me/titi_uxi" },
+                { label: "WhatsApp", href: "https://wa.me/" },
+                { label: "GitHub", href: "https://github.com/TITI_UXI" },
+              ].map((social) => (
+                <Magnetic key={social.label}>
+                  <a
+                    href={social.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="block transition-opacity hover:opacity-70"
+                  >
+                    {social.label}
                   </a>
                 </Magnetic>
               ))}

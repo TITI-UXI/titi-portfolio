@@ -10,7 +10,7 @@ export function Header() {
             to="/"
             className="block rounded-full bg-primary px-5 py-2.5 text-sm font-semibold tracking-tight text-primary-foreground transition-opacity hover:opacity-80"
           >
-            IA
+            T
           </Link>
         </Magnetic>
 
@@ -33,7 +33,7 @@ export function Header() {
 
         <Magnetic>
           <a
-            href="mailto:hello@imanamanin.com"
+            href="mailto:titi.uxui@gmail.com"
             className="block rounded-full bg-primary px-5 py-2.5 text-sm font-semibold tracking-tight text-primary-foreground transition-opacity hover:opacity-80"
           >
             Let's talk

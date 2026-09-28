@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-const TEXT = "Iman Amanin — Creative Developer & Designer — ";
+const TEXT = "TINA — Creative Developer & Designer — ";
 
 export function Marquee() {
   const trackRef = useRef<HTMLDivElement>(null);

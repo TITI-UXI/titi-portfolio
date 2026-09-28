@@ -79,18 +79,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Iman Amanin — Creative Developer & Multidisciplinary Designer" },
+      { title: "TINA — Creative Developer & Multidisciplinary Designer" },
       {
         name: "description",
         content:
-          "Portfolio of Iman Amanin, a creative developer and multidisciplinary designer in Rasht, Iran, building fast, precise digital experiences.",
+          "Portfolio of TINA, a creative developer and multidisciplinary designer in Rasht, Iran, building fast, precise digital experiences.",
       },
-      { name: "author", content: "Iman Amanin" },
-      { property: "og:title", content: "Iman Amanin — Creative Developer & Multidisciplinary Designer" },
+      { name: "author", content: "TINA" },
+      { property: "og:title", content: "TINA — Creative Developer & Multidisciplinary Designer" },
       {
         property: "og:description",
         content:
-          "Portfolio of Iman Amanin, a creative developer and multidisciplinary designer in Rasht, Iran, building fast, precise digital experiences.",
+          "Portfolio of TINA, a creative developer and multidisciplinary designer in Rasht, Iran, building fast, precise digital experiences.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
