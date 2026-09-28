@@ -196,7 +196,8 @@ export function PageTransition() {
     <div
       ref={curtainRef}
       aria-hidden="true"
-      className="pointer-events-none invisible fixed inset-x-0 top-0 z-[100] h-screen bg-inverse text-inverse-foreground"
+      id="page-transition"
+      className="pointer-events-none invisible fixed inset-x-0 top-0 z-[9999] h-screen bg-inverse text-inverse-foreground"
     >
       <svg
         className="absolute bottom-full left-0 h-[18vh] w-full text-inverse"

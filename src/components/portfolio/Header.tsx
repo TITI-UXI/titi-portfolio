@@ -17,9 +17,9 @@ export function Header() {
 
         <div className="hidden items-center gap-1 rounded-full border border-border bg-canvas/70 px-2 py-2 backdrop-blur-md sm:flex">
           {[
-            { label: "Work", to: "/#work" },
-            { label: "About", to: "/#about" },
-            { label: "Contact", to: "/#contact" },
+            { label: "Work", to: "/work" },
+            { label: "About", to: "/about" },
+            { label: "Contact", to: "/contact" },
           ].map((item) => (
             <Magnetic key={item.label}>
               <TransitionLink

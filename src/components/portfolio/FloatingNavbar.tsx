@@ -11,9 +11,9 @@ import { cn } from "@/lib/utils";
 import { TransitionLink } from "@/components/portfolio/PageTransition";
 
 const NAV_LINKS = [
-  { id: "work", label: "Work", href: "#work" },
-  { id: "about", label: "About", href: "#about" },
-  { id: "services", label: "Services", href: "#services" },
+  { id: "work", label: "Work", href: "/work" },
+  { id: "about", label: "About", href: "/about" },
+  { id: "contact", label: "Contact", href: "/contact" },
 ] as const;
 
 type SectionId = (typeof NAV_LINKS)[number]["id"];
