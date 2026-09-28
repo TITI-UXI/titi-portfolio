@@ -1,125 +1,92 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { PRELOADER_COMPLETE_EVENT } from "./Preloader";
-const GLYPHS = "!<>-_\\/[]{}—=+*^?#01ABCDEFXYZ";
 
-function ScrambledText({ text, className }: { text: string; className?: string }) {
-  const [out, setOut] = useState(text); // SSR / no-JS fallback: final text
-  const ref = useRef<HTMLSpanElement>(null);
+const NAME = "Zahra Alizadeh — ";
 
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    let raf = 0;
-    let started = false;
-    const run = () => {
-      if (started) return;
-      started = true;
-      const start = performance.now();
-      const dur = 1400;
-      const tick = (now: number) => {
-        const p = Math.min((now - start) / dur, 1);
-        const revealed = Math.floor(p * text.length);
-        setOut(
-          text
-            .split("")
-            .map((c, i) =>
-              i < revealed || c === " " ? c : GLYPHS[Math.floor(Math.random() * GLYPHS.length)],
-            )
-            .join(""),
-        );
-        if (p < 1) raf = requestAnimationFrame(tick);
-      };
-      raf = requestAnimationFrame(tick);
-    };
-    const io = new IntersectionObserver(
-      (e) => e[0]?.isIntersecting && run(),
-      { threshold: 0.6 },
-    );
-    if (ref.current) io.observe(ref.current);
-    return () => {
-      io.disconnect();
-      cancelAnimationFrame(raf);
-    };
-  }, [text]);
-
+function Globe() {
   return (
-    <span ref={ref} className={className} aria-label={text}>
-      <span aria-hidden>{out}</span>
-    </span>
+    <svg viewBox="0 0 24 24" className="h-6 w-6 animate-[spin_8s_linear_infinite]" fill="none" stroke="currentColor" strokeWidth="1" aria-hidden>
+      <circle cx="12" cy="12" r="10" />
+      <ellipse cx="12" cy="12" rx="4" ry="10" />
+      <path d="M2 12h20M4 7h16M4 17h16" />
+    </svg>
   );
 }
 
-// Temporarily disabled: hero renders fully revealed with no pin/mask.
-// Set back to true to restore the scroll-driven portal entrance.
-const ENABLE_SCROLL_MASK = false;
-
-export function HeroMask() {
-  const root = useRef<HTMLElement>(null);
-  const stage = useRef<HTMLDivElement>(null);
+function DirectionalSlider() {
+  const track = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
-    if (!ENABLE_SCROLL_MASK) return; // skip pin + mask; hero is visible by default
-    const section = root.current;
-    const hero = stage.current;
-    if (!section || !hero) return;
-
+    const el = track.current;
+    if (!el) return;
     gsap.registerPlugin(ScrollTrigger);
-    const ctx = gsap.context(() => {
-      gsap.set(hero, { "--portal-radius": "0vw" });
-      gsap
-        .timeline({
-          scrollTrigger: {
-            trigger: section,
-            start: "top top",
-            end: "+=1200",
-            scrub: 1,
-            pin: true,
-            pinSpacing: true,
-            anticipatePin: 1,
-            invalidateOnRefresh: true,
-          },
-        })
-        .to(hero, { "--portal-radius": "150vw", ease: "none" });
-    }, root);
-
-    const activateHero = () => {
-      window.scrollTo(0, 0);
-      ScrollTrigger.refresh();
-    };
-    window.addEventListener(PRELOADER_COMPLETE_EVENT, activateHero);
-
-    return () => {
-      window.removeEventListener(PRELOADER_COMPLETE_EVENT, activateHero);
-      ctx.revert();
-    };
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // Two identical halves: loop xPercent 0 → -50.
+    const tween = gsap.fromTo(el, { xPercent: 0 }, { xPercent: -50, duration: 24, ease: "none", repeat: -1 });
+    if (reduce) {
+      tween.timeScale(0.3);
+      return () => { tween.kill(); };
+    }
+    let direction = 1;
+    const st = ScrollTrigger.create({
+      start: 0,
+      end: "max",
+      onUpdate: (self) => {
+        direction = self.direction; // 1 = down → left, -1 = up → right
+        const boost = Math.min(Math.abs(self.getVelocity()) / 300, 5);
+        gsap.to(tween, {
+          timeScale: direction * (1 + boost),
+          duration: 0.2,
+          overwrite: true,
+          onComplete: () => { gsap.to(tween, { timeScale: direction, duration: 0.8, ease: "power2.out" }); },
+        });
+      },
+    });
+    return () => { st.kill(); tween.kill(); };
   }, []);
 
+  const half = (
+    <span className="flex shrink-0">
+      {[0, 1, 2].map((i) => <span key={i} className="pr-[0.25em]">{NAME}</span>)}
+    </span>
+  );
+
   return (
-    <div>
-    <section ref={root} className="relative h-svh w-full overflow-hidden bg-inverse">
-      <div
-        ref={stage}
-        className={`absolute inset-0 bg-inverse text-inverse-foreground ${ENABLE_SCROLL_MASK ? "portal-mask" : ""}`}
-      >
-        <img
-          src="/portrait.jpg"
-          alt="Portrait of TINA"
-          className="absolute inset-0 h-full w-full object-cover opacity-60 grayscale"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-inverse via-inverse/40 to-transparent" />
-        <div className="relative mx-auto flex h-full max-w-7xl flex-col justify-end px-4 pb-16 sm:px-6">
-          <p className="eyebrow mb-6 opacity-70">Rasht, Iran — Available Worldwide</p>
-          <h1 className="display-xl uppercase">TINA</h1>
-          <ScrambledText
-            text="Creative Developer & Multidisciplinary Designer"
-            className="mt-6 block font-mono text-sm uppercase tracking-widest opacity-80 sm:text-base"
-          />
+    <div className="pointer-events-none relative z-20 overflow-hidden" aria-label="Zahra Alizadeh">
+      <div ref={track} aria-hidden className="flex w-max whitespace-nowrap text-[15vw] font-medium leading-none tracking-tight text-hero-foreground md:text-[13vw]">
+        {half}
+        {half}
+      </div>
+    </div>
+  );
+}
+
+export function HeroMask() {
+  return (
+    <section className="relative flex min-h-screen w-full flex-col justify-between overflow-hidden bg-hero pb-12 pt-8 text-hero-foreground">
+      <p className="relative z-20 px-8 text-sm font-medium md:px-16">© Code by Tina</p>
+
+      <img
+        src="/portrait.jpg"
+        alt="Portrait of Tina"
+        className="pointer-events-none absolute bottom-0 left-1/2 z-10 w-full max-w-[420px] -translate-x-1/2 select-none object-contain md:max-w-[480px]"
+      />
+
+      <div className="relative z-20 flex flex-col gap-10 md:flex-row md:items-center md:justify-between">
+        <div className="flex w-fit items-center gap-3 rounded-r-full border border-hero-foreground/10 bg-hero-surface py-2.5 pl-8 pr-4 text-xs tracking-wide text-hero-foreground/75 md:pl-16">
+          <span className="leading-tight">Located<br />in Iran</span>
+          <span className="flex h-11 w-11 items-center justify-center rounded-full bg-hero-button text-hero-foreground">
+            <Globe />
+          </span>
+        </div>
+        <div className="px-8 md:px-16">
+          <span className="mb-2 block text-2xl text-hero-foreground/60" aria-hidden>↘</span>
+          <p className="text-2xl font-medium leading-tight md:text-3xl">Freelance<br />Designer &amp; Developer</p>
         </div>
       </div>
+
+      <DirectionalSlider />
     </section>
-    </div>
   );
 }
