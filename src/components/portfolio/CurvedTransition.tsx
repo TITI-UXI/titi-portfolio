@@ -84,11 +84,10 @@ export function useCurvedNavigation() {
       return playCurvedTransition(label ?? labelFor(destination.pathname, destination.hash), async () => {
         if (destination.pathname === window.location.pathname) {
           window.history.pushState(window.history.state, "", target);
+        } else if (destination.hash) {
+          await navigate({ to: destination.pathname, hash: destination.hash.slice(1) });
         } else {
-          await navigate({
-            to: destination.pathname,
-            hash: destination.hash ? destination.hash.slice(1) : undefined,
-          });
+          await navigate({ to: destination.pathname });
         }
         notifyNavigationReady(destination.hash);
       });
