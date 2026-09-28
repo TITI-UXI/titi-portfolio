@@ -85,10 +85,10 @@ function Card({
   const overlay = useTransform(scrollYProgress, [0, 1], [0, isLast ? 0 : 0.45]);
 
   return (
-    <div ref={ref} className="md:sticky md:top-0 md:h-screen md:py-4" style={{ zIndex: index + 1 }}>
+    <div ref={ref} className="md:sticky md:top-0 md:flex md:h-screen md:items-center" style={{ zIndex: index + 1 }}>
       <motion.article
         style={{ scale }}
-        className="relative w-full origin-top overflow-hidden rounded-3xl bg-inverse text-inverse-foreground will-change-transform md:h-full"
+        className="relative mx-auto w-full max-w-6xl origin-top overflow-hidden rounded-3xl bg-inverse text-inverse-foreground will-change-transform md:h-[65vh] md:max-h-[620px] md:min-h-[520px]"
       >
         <div className="grid gap-6 p-6 sm:p-10 md:h-full md:grid-cols-5 md:gap-10">
           <div className="flex flex-col justify-between gap-6 md:col-span-2">
