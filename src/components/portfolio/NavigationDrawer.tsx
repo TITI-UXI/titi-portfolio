@@ -47,24 +47,9 @@ function MagneticItem({ children, strength = 0.22 }: { children: ReactNode; stre
 
 export function NavigationDrawer() {
   const [open, setOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState<SectionId>("top");
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
   const reduceMotion = useReducedMotion();
   const closeButtonRef = useRef<HTMLButtonElement>(null);
-
-  useEffect(() => {
-    const sections = LINKS.map((link) => document.getElementById(link.id)).filter(
-      (section): section is HTMLElement => section !== null,
-    );
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries.find((entry) => entry.isIntersecting);
-        if (visible) setActiveSection(visible.target.id as SectionId);
-      },
-      { rootMargin: "-40% 0px -55% 0px", threshold: 0 },
-    );
-    sections.forEach((section) => observer.observe(section));
-    return () => observer.disconnect();
-  }, []);
 
   useEffect(() => {
     if (!open) return;
