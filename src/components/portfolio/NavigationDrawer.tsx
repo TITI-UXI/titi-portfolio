@@ -146,22 +146,22 @@ export function NavigationDrawer() {
                 <ul>
                   {LINKS.map((link, index) => (
                     <motion.li
-                      key={link.id}
+                      key={link.to}
                       variants={{ closed: { opacity: 0, x: 48 }, open: { opacity: 1, x: 0 } }}
                       transition={{ delay: reduceMotion ? 0 : 0.18 + index * 0.07, duration: 0.45 }}
                     >
                       <MagneticItem>
-                        <a
-                          href={link.href}
+                        <Link
+                          to={link.to}
                           onClick={() => setOpen(false)}
                           className="group flex items-center gap-4 py-1 text-[clamp(2.7rem,7vw,6.5rem)] font-semibold uppercase leading-[0.95]"
                         >
                           <span
                             aria-hidden
-                            className={`h-2 w-2 shrink-0 rounded-full bg-inverse-foreground transition-opacity ${activeSection === link.id ? "opacity-100" : "opacity-0 group-hover:opacity-40"}`}
+                            className={`h-2 w-2 shrink-0 rounded-full bg-inverse-foreground transition-opacity ${pathname === link.to ? "opacity-100" : "opacity-0 group-hover:opacity-40"}`}
                           />
                           <span className="transition-opacity group-hover:opacity-60">{link.label}</span>
-                        </a>
+                        </Link>
                       </MagneticItem>
                     </motion.li>
                   ))}
