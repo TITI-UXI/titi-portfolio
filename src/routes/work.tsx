@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import gsap from "gsap";
 import { AnimatePresence, motion } from "framer-motion";
-import { TransitionLink } from "@/components/portfolio/PageTransition";
+import { TransitionLink } from "@/components/portfolio/CurvedTransition";
 
 export const Route = createFileRoute("/work")({
   head: () => ({

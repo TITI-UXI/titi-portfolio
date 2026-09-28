@@ -8,7 +8,7 @@ import {
   useSpring,
 } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { TransitionLink } from "@/components/portfolio/PageTransition";
+import { TransitionLink } from "@/components/portfolio/CurvedTransition";
 
 const NAV_LINKS = [
   { id: "work", label: "Work", href: "/work" },

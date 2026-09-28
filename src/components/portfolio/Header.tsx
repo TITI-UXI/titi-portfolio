@@ -1,5 +1,5 @@
 import { Magnetic } from "@/components/motion/Magnetic";
-import { TransitionLink } from "@/components/portfolio/PageTransition";
+import { TransitionLink } from "@/components/portfolio/CurvedTransition";
 
 export function Header() {
   return (

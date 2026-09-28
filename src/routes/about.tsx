@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { TransitionLink } from "@/components/portfolio/PageTransition";
+import { TransitionLink } from "@/components/portfolio/CurvedTransition";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
