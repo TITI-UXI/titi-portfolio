@@ -13,6 +13,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SmoothScroll } from "@/components/motion/SmoothScroll";
 import { Cursor } from "@/components/motion/Cursor";
+import { PageTransition } from "@/components/motion/PageTransition";
 
 function NotFoundComponent() {
   return (
@@ -143,6 +144,7 @@ function RootComponent() {
         <Outlet />
       </SmoothScroll>
       <Cursor />
+      <PageTransition />
     </QueryClientProvider>
   );
 }
