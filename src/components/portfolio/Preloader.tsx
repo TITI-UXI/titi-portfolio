@@ -21,9 +21,7 @@ export function Preloader() {
     document.body.style.overflow = "hidden";
     window.scrollTo(0, 0);
 
-    const duration = GREETINGS.length * STEP_DURATION;
-    const startedAt = performance.now();
-    let frame = 0;
+    let sequenceTimer = 0;
     let exitTimer = 0;
     let exitTween: gsap.core.Tween | undefined;
 
@@ -44,22 +42,21 @@ export function Preloader() {
       }, 240);
     };
 
-    const update = (now: number) => {
-      const ratio = Math.min((now - startedAt) / duration, 1);
-      setProgress(Math.round(ratio * 100));
-      setGreetingIndex(Math.min(GREETINGS.length - 1, Math.floor(ratio * GREETINGS.length)));
+    let nextIndex = 0;
+    sequenceTimer = window.setInterval(() => {
+      nextIndex += 1;
+      const clampedIndex = Math.min(nextIndex, GREETINGS.length - 1);
+      setGreetingIndex(clampedIndex);
+      setProgress(Math.round((clampedIndex / (GREETINGS.length - 1)) * 100));
 
-      if (ratio < 1) {
-        frame = requestAnimationFrame(update);
-      } else {
+      if (clampedIndex === GREETINGS.length - 1) {
+        window.clearInterval(sequenceTimer);
         finish();
       }
-    };
-
-    frame = requestAnimationFrame(update);
+    }, STEP_DURATION);
 
     return () => {
-      cancelAnimationFrame(frame);
+      window.clearInterval(sequenceTimer);
       window.clearTimeout(exitTimer);
       exitTween?.kill();
       document.body.style.overflow = previousOverflow;
