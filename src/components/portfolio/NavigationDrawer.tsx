@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState, type MouseEvent, type ReactNode } from "react";
 import { AnimatePresence, motion, useMotionValue, useReducedMotion, useSpring } from "framer-motion";
-import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
+import { useRouterState } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
-import { playTransition } from "@/components/motion/PageTransition";
+import { TransitionLink } from "@/components/portfolio/PageTransition";
 
 const LINKS = [
   { label: "Home", to: "/" },
@@ -48,7 +48,6 @@ function MagneticItem({ children, strength = 0.22 }: { children: ReactNode; stre
 
 export function NavigationDrawer() {
   const [open, setOpen] = useState(false);
-  const navigate = useNavigate();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const reduceMotion = useReducedMotion();
   const closeButtonRef = useRef<HTMLButtonElement>(null);
@@ -72,7 +71,7 @@ export function NavigationDrawer() {
 
   return (
     <>
-      <div className="fixed right-4 top-4 z-[1000] sm:right-8 sm:top-8">
+      <div className="fixed right-4 top-4 z-[90] sm:right-8 sm:top-8">
         <MagneticItem strength={0.35}>
           <Button
             ref={closeButtonRef}
@@ -105,7 +104,7 @@ export function NavigationDrawer() {
         {open && (
           <motion.div
             id="navigation-drawer"
-            className="fixed inset-0 z-[990]"
+            className="fixed inset-0 z-[80]"
             initial="closed"
             animate="open"
             exit="closed"
@@ -153,16 +152,10 @@ export function NavigationDrawer() {
                       transition={{ delay: reduceMotion ? 0 : 0.18 + index * 0.07, duration: 0.45 }}
                     >
                       <MagneticItem>
-                        <Link
-                          to={link.to}
-                          onClick={(event) => {
-                            event.preventDefault();
-                            setOpen(false);
-                            if (pathname === link.to) return;
-                            void playTransition(() => {
-                              void navigate({ to: link.to });
-                            });
-                          }}
+                        <TransitionLink
+                          href={link.to}
+                          label={link.label}
+                          onClick={() => setOpen(false)}
                           className="group flex items-center gap-4 py-1 text-[clamp(2.7rem,7vw,6.5rem)] font-semibold uppercase leading-[0.95]"
                         >
                           <span
@@ -170,7 +163,7 @@ export function NavigationDrawer() {
                             className={`h-2 w-2 shrink-0 rounded-full bg-inverse-foreground transition-opacity ${pathname === link.to ? "opacity-100" : "opacity-0 group-hover:opacity-40"}`}
                           />
                           <span className="transition-opacity group-hover:opacity-60">{link.label}</span>
-                        </Link>
+                        </TransitionLink>
                       </MagneticItem>
                     </motion.li>
                   ))}

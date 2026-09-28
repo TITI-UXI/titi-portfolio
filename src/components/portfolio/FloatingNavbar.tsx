@@ -8,6 +8,7 @@ import {
   useSpring,
 } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { TransitionLink } from "@/components/portfolio/PageTransition";
 
 const NAV_LINKS = [
   { id: "work", label: "Work", href: "#work" },
@@ -145,13 +146,14 @@ export function FloatingNavbar() {
     >
       {/* Brand mark — back to top */}
       <MagneticItem className="hidden sm:inline-block">
-        <a
+        <TransitionLink
           href="#top"
+          label="Home"
           aria-label="TINA — back to top"
           className="flex h-9 w-9 items-center justify-center rounded-full text-xs font-semibold tracking-tight transition-colors hover:bg-inverse-foreground/10"
         >
           T
-        </a>
+        </TransitionLink>
       </MagneticItem>
 
       <ul className="flex items-center">
@@ -160,8 +162,9 @@ export function FloatingNavbar() {
           return (
             <li key={link.id}>
               <MagneticItem>
-                <a
+                <TransitionLink
                   href={link.href}
+                  label={link.label}
                   aria-current={activeSection === link.id ? "location" : undefined}
                   onMouseEnter={() => setHovered(link.id)}
                   onFocus={() => setHovered(link.id)}
@@ -180,7 +183,7 @@ export function FloatingNavbar() {
                     />
                   )}
                   <span className="relative">{link.label}</span>
-                </a>
+                </TransitionLink>
               </MagneticItem>
             </li>
           );
