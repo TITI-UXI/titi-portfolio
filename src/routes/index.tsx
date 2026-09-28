@@ -30,6 +30,8 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
+const SHOW_RECENT_WORK = false;
+
 function Index() {
   return (
     <main id="top" className="min-h-screen bg-canvas text-foreground">
@@ -38,7 +40,7 @@ function Index() {
       <Hero />
       <About />
       <ProjectsStack />
-      <RecentWork />
+      {SHOW_RECENT_WORK && <RecentWork />}
       <Services />
       <Footer />
     </main>
