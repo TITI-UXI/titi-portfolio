@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type MouseEvent as ReactMouseEvent } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import gsap from "gsap";
 import { AnimatePresence, motion } from "framer-motion";
@@ -71,36 +71,38 @@ function WorkPage() {
     Development: PROJECTS.filter((p) => p.category === "Development").length,
   };
 
-  // Cursor-following floating preview (grid view, fine pointers only)
+  // Floating follower: rectangular preview in List view, compact "View" circle in Grid view.
+  const quick = useRef<{ x: (v: number) => void; y: (v: number) => void } | null>(null);
   useEffect(() => {
-    if (view !== "grid" || !window.matchMedia("(pointer: fine)").matches) return;
     const modal = modalRef.current;
-    const section = sectionRef.current;
-    if (!modal || !section) return;
-
+    if (!modal || !window.matchMedia("(pointer: fine)").matches) return;
     gsap.set(modal, { xPercent: -50, yPercent: -50, scale: 0 });
-    const xTo = gsap.quickTo(modal, "x", { duration: 0.55, ease: "power3.out" });
-    const yTo = gsap.quickTo(modal, "y", { duration: 0.55, ease: "power3.out" });
-    const move = (e: MouseEvent) => {
-      xTo(e.clientX);
-      yTo(e.clientY);
+    const lag = view === "list" ? 0.6 : 0.3;
+    quick.current = {
+      x: gsap.quickTo(modal, "x", { duration: lag, ease: "power3.out" }),
+      y: gsap.quickTo(modal, "y", { duration: lag, ease: "power3.out" }),
     };
-    const enter = () => gsap.to(modal, { scale: 1, duration: 0.5, ease: "back.out(1.4)" });
-    const leave = () => gsap.to(modal, { scale: 0, duration: 0.4, ease: "power3.in" });
-
-    section.addEventListener("mousemove", move);
-    section.addEventListener("mouseenter", enter);
-    section.addEventListener("mouseleave", leave);
     return () => {
-      section.removeEventListener("mousemove", move);
-      section.removeEventListener("mouseenter", enter);
-      section.removeEventListener("mouseleave", leave);
+      gsap.killTweensOf(modal);
+      quick.current = null;
     };
   }, [view]);
 
+  const follow = (e: ReactMouseEvent) => {
+    quick.current?.x(e.clientX);
+    quick.current?.y(e.clientY);
+  };
+  const showFollower = (i: number) => {
+    setActive(i);
+    if (quick.current && modalRef.current) gsap.to(modalRef.current, { scale: 1, duration: 0.45, ease: "back.out(1.4)" });
+  };
+  const hideFollower = () => {
+    if (modalRef.current) gsap.to(modalRef.current, { scale: 0, duration: 0.35, ease: "power3.in" });
+  };
+
   useEffect(() => {
     const strip = stripRef.current;
-    if (!strip || view !== "grid") return;
+    if (!strip || view !== "list") return;
     gsap.to(strip, { yPercent: -active * 100, duration: 0.5, ease: "power3.out" });
   }, [active, view]);
 
@@ -171,9 +173,9 @@ function WorkPage() {
                 <span>Category</span>
                 <span className="text-right">Year</span>
               </div>
-              <ul>
-                {filtered.map((project) => (
-                  <li key={project.title} className="border-b border-border">
+              <ul onMouseMove={follow} onMouseLeave={hideFollower}>
+                {filtered.map((project, i) => (
+                  <li key={project.title} className="border-b border-border" onMouseEnter={() => showFollower(i)}>
                     <div className="group grid gap-2 py-6 transition-opacity hover:opacity-60 sm:grid-cols-[2fr_1fr_1.5fr_1fr_0.5fr] sm:items-baseline sm:gap-6 sm:py-8">
                       <span className="text-2xl font-semibold tracking-tight transition-transform duration-300 group-hover:translate-x-3 sm:text-3xl">
                         {project.client}
@@ -196,14 +198,15 @@ function WorkPage() {
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.35 }}
               className="relative mt-12"
-              onMouseLeave={() => setActive(0)}
+              onMouseMove={follow}
             >
               <div className="grid gap-6 sm:grid-cols-2">
                 {filtered.map((project, i) => (
                   <div
                     key={project.title}
-                    onMouseEnter={() => setActive(i)}
-                    className="group"
+                    onMouseEnter={() => showFollower(i)}
+                    onMouseLeave={hideFollower}
+                    className="group md:cursor-none"
                   >
                     <div className="aspect-[4/3] w-full overflow-hidden rounded-2xl transition-transform duration-500 group-hover:scale-[0.98]">
                       <Thumb project={project} />
@@ -218,28 +221,37 @@ function WorkPage() {
                 ))}
               </div>
 
-              {/* Floating preview — desktop only */}
-              <div
-                ref={modalRef}
-                aria-hidden
-                className="pointer-events-none fixed left-0 top-0 z-[90] hidden h-56 w-80 overflow-hidden rounded-2xl shadow-2xl md:block"
-              >
-                <div ref={stripRef} className="h-full w-full">
-                  {filtered.map((project) => (
-                    <div key={project.title} className="h-full w-full">
-                      <Thumb project={project} />
-                    </div>
-                  ))}
-                </div>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="flex h-20 w-20 items-center justify-center rounded-full bg-canvas text-xs font-semibold uppercase tracking-widest text-ink">
-                    View
-                  </div>
-                </div>
-              </div>
             </motion.section>
           )}
         </AnimatePresence>
+
+        {view === "list" ? (
+          <div
+            key="list-preview"
+            ref={modalRef}
+            aria-hidden
+            className="pointer-events-none fixed left-0 top-0 z-[90] hidden h-60 w-80 overflow-hidden rounded-2xl shadow-2xl md:block"
+            style={{ transform: "scale(0)" }}
+          >
+            <div ref={stripRef} className="h-full w-full">
+              {filtered.map((project) => (
+                <div key={project.title} className="h-full w-full">
+                  <Thumb project={project} />
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div
+            key="grid-cursor"
+            ref={modalRef}
+            aria-hidden
+            className="pointer-events-none fixed left-0 top-0 z-[90] hidden h-20 w-20 items-center justify-center rounded-full bg-foreground text-xs font-semibold uppercase tracking-widest text-canvas md:flex"
+            style={{ transform: "scale(0)" }}
+          >
+            View
+          </div>
+        )}
 
         <div className="mt-24 flex justify-center">
           <TransitionLink
