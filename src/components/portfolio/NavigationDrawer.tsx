@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState, type MouseEvent, type ReactNode } from "react";
 import { AnimatePresence, motion, useMotionValue, useReducedMotion, useSpring } from "framer-motion";
+import { Link, useRouterState } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 
 const LINKS = [
-  { id: "top", label: "Home", href: "#top" },
-  { id: "work", label: "Work", href: "#work" },
-  { id: "about", label: "About", href: "#about" },
-  { id: "contact", label: "Contact", href: "#contact" },
+  { label: "Home", to: "/" },
+  { label: "Work", to: "/work" },
+  { label: "About", to: "/about" },
+  { label: "Contact", to: "/contact" },
 ] as const;
 
 const SOCIALS = [
