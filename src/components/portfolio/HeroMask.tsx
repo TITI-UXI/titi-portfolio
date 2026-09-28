@@ -35,7 +35,7 @@ function ScrambledText({ text, className }: { text: string; className?: string }
       raf = requestAnimationFrame(tick);
     };
     const io = new IntersectionObserver(
-      (e) => e[0].isIntersecting && run(),
+      (e) => e[0]?.isIntersecting && run(),
       { threshold: 0.6 },
     );
     if (ref.current) io.observe(ref.current);
