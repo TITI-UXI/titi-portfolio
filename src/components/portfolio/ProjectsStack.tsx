@@ -35,6 +35,38 @@ const FALLBACK_PROJECTS: StackProject[] = [
     from: "#1a1a1a",
     to: "#bdbdbd",
   },
+  {
+    title: "Aurora Studio",
+    category: "Brand & Interactive Site",
+    year: "2026",
+    description: "A motion-led studio site where every section responds to scroll with calm, physical easing.",
+    from: "#131b2e",
+    to: "#7f9bd6",
+  },
+  {
+    title: "Field Notes",
+    category: "Design & Development",
+    year: "2025",
+    description: "A research journal platform with fluid layouts, offline drafts and a distraction-free reading mode.",
+    from: "#1f2a1c",
+    to: "#a8c48e",
+  },
+  {
+    title: "Halo Health",
+    category: "Product Design",
+    year: "2025",
+    description: "A patient-first healthcare dashboard simplifying appointments, records and follow-ups.",
+    from: "#2b1a22",
+    to: "#d99ab5",
+  },
+  {
+    title: "Mono Records",
+    category: "E-commerce & WebGL",
+    year: "2024",
+    description: "A vinyl store with audio previews, a 3D turntable and a checkout that never leaves the page.",
+    from: "#22201a",
+    to: "#cfc4a4",
+  },
 ];
 
 function Card({
