@@ -85,12 +85,12 @@ function Card({
   const overlay = useTransform(scrollYProgress, [0, 1], [0, isLast ? 0 : 0.45]);
 
   return (
-    <div ref={ref} className="md:sticky md:top-0 md:flex md:h-screen md:items-center">
+    <div ref={ref} className="md:sticky md:top-0 md:h-screen md:py-4" style={{ zIndex: index + 1 }}>
       <motion.article
-        style={{ scale, top: `${index * 24}px` }}
-        className="relative w-full origin-top overflow-hidden rounded-3xl bg-inverse text-inverse-foreground md:relative"
+        style={{ scale }}
+        className="relative w-full origin-top overflow-hidden rounded-3xl bg-inverse text-inverse-foreground will-change-transform md:h-full"
       >
-        <div className="grid gap-6 p-6 sm:p-10 md:grid-cols-5 md:gap-10">
+        <div className="grid gap-6 p-6 sm:p-10 md:h-full md:grid-cols-5 md:gap-10">
           <div className="flex flex-col justify-between gap-6 md:col-span-2">
             <div>
               <p className="eyebrow text-inverse-muted">
@@ -106,7 +106,7 @@ function Card({
             </div>
           </div>
           <div
-            className="aspect-[4/3] w-full rounded-2xl md:col-span-3 md:aspect-auto md:h-[60vh]"
+            className="aspect-[4/3] w-full rounded-2xl md:col-span-3 md:aspect-auto md:h-full"
             style={{ background: `linear-gradient(135deg, ${project.from}, ${project.to})` }}
           />
         </div>
