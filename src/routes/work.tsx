@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import gsap from "gsap";
 import { AnimatePresence, motion } from "framer-motion";
+import { TransitionLink } from "@/components/portfolio/PageTransition";
 
 export const Route = createFileRoute("/work")({
   head: () => ({
@@ -241,12 +242,13 @@ function WorkPage() {
         </AnimatePresence>
 
         <div className="mt-24 flex justify-center">
-          <Link
-            to="/contact"
+          <TransitionLink
+            href="/contact"
+            label="Contact"
             className="rounded-full border border-foreground px-8 py-4 text-sm font-medium transition-colors hover:bg-foreground hover:text-canvas"
           >
             Start a project
-          </Link>
+          </TransitionLink>
         </div>
       </div>
     </main>

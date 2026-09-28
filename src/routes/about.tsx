@@ -1,4 +1,5 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
+import { TransitionLink } from "@/components/portfolio/PageTransition";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -101,12 +102,13 @@ function AboutPage() {
             </section>
 
             <div>
-              <Link
-                to="/contact"
+              <TransitionLink
+                href="/contact"
+                label="Contact"
                 className="inline-block rounded-full border border-foreground px-8 py-4 text-sm font-medium transition-colors hover:bg-foreground hover:text-canvas"
               >
                 Let's work together
-              </Link>
+              </TransitionLink>
             </div>
           </div>
         </div>

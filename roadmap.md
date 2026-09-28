@@ -9,6 +9,7 @@
 - [x] Drawer links rewired to /work /about /contact with curtain wipe via playTransition; drawer moved to __root so it shows on all pages
 - [ ] Browser-verify navbar hide/reveal, hover pill, anchor scrolling, and the footer/marquee changes
 - [ ] Browser-verify mobile layout of drawer and sub-pages
+- [ ] Browser-verify labeled curved transitions across routes, section links, and browser history
 
 ## Ready
 - Add TINA's WhatsApp phone number to complete the WhatsApp link (waiting on user)
