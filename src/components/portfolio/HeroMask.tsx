@@ -79,7 +79,7 @@ export function HeroMask() {
     <section className="relative h-screen max-h-[1080px] min-h-[680px] w-full overflow-hidden bg-hero text-hero-foreground">
       <p className="absolute left-8 top-8 z-30 text-sm tracking-wide text-hero-foreground/60 md:left-12">© Code by Tina</p>
 
-      <div className="pointer-events-none absolute bottom-0 left-1/2 z-10 flex h-[72vh] max-h-[700px] w-auto max-w-[500px] -translate-x-1/2 select-none items-end justify-center">
+      <div className="pointer-events-none absolute bottom-0 left-1/2 z-10 flex h-[50vh] max-h-[460px] w-auto max-w-[85vw] -translate-x-1/2 select-none items-end justify-center md:h-[60vh] md:max-h-[580px] md:max-w-[420px] lg:h-[70vh] lg:max-h-[720px] lg:max-w-[500px]">
         <img
           src="/portrait.jpg"
           alt="Portrait of Tina"
