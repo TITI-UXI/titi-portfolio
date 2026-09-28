@@ -1,5 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Hero } from "@/components/portfolio/Hero";
 import { HeroMask } from "@/components/portfolio/HeroMask";
 import { RecentWork } from "@/components/portfolio/RecentWork";
 import { About } from "@/components/portfolio/About";
@@ -37,7 +36,6 @@ function Index() {
     <main id="top" className="min-h-screen bg-canvas text-foreground">
       <Preloader />
       <HeroMask />
-      <Hero />
       <About />
       <ProjectsStack />
       {SHOW_RECENT_WORK && <RecentWork />}
