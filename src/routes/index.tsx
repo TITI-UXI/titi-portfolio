@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { FloatingNavbar } from "@/components/portfolio/FloatingNavbar";
+import { NavigationDrawer } from "@/components/portfolio/NavigationDrawer";
 import { Hero } from "@/components/portfolio/Hero";
 import { HeroMask } from "@/components/portfolio/HeroMask";
 import { RecentWork } from "@/components/portfolio/RecentWork";
@@ -35,7 +35,7 @@ function Index() {
   return (
     <main id="top" className="min-h-screen bg-canvas text-foreground">
       <Preloader />
-      <FloatingNavbar />
+      <NavigationDrawer />
       <HeroMask />
       <Hero />
       <About />

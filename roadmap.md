@@ -6,6 +6,7 @@
 - [ ] Browser-verify navbar hide/reveal, hover pill, anchor scrolling, and the last round's unverified footer/marquee changes
 - [ ] Browser-verify TINA identity update and the rebuilt scroll-mask entrance
 - [x] Browser-verify multilingual preloader, curved exit, scroll lock, and hero handoff
+- [ ] Browser-verify floating magnetic menu, curved drawer, links, and mobile layout
 
 ## Ready
 - Add TINA's WhatsApp phone number to complete the WhatsApp link (waiting on user)
