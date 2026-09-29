@@ -47,7 +47,7 @@ function FillButton({ href, children }: { href: string; children: React.ReactNod
   );
 }
 
-export function Footer() {
+export function Footer({ lipClassName = "bg-canvas" }: { lipClassName?: string }) {
   const curveRef = useRef<HTMLDivElement>(null);
   const footerRef = useRef<HTMLElement>(null);
 
@@ -81,7 +81,7 @@ export function Footer() {
       <div className="pointer-events-none absolute inset-x-0 top-0 z-10">
         <div
           ref={curveRef}
-          className="relative -left-[10%] w-[120%] rounded-b-[50%] bg-canvas shadow-[0_40px_60px_-20px_oklch(0_0_0/35%)]"
+          className={`relative -left-[10%] w-[120%] rounded-b-[50%] ${lipClassName} shadow-[0_40px_60px_-20px_oklch(0_0_0/35%)]`}
         />
       </div>
 

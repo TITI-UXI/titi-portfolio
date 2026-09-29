@@ -12,10 +12,10 @@ const LINKS = [
 ] as const;
 
 const SOCIALS = [
+  { label: "Awwwards", href: "https://www.awwwards.com/" },
   { label: "Instagram", href: "https://instagram.com/titi-uxi" },
-  { label: "Telegram", href: "https://t.me/titi_uxi" },
-  { label: "GitHub", href: "https://github.com/TITI_UXI" },
-  { label: "WhatsApp", href: "https://wa.me/" },
+  { label: "Telegram", href: "https://t.me/titi_uxui" },
+  { label: "LinkedIn", href: "https://linkedin.com/" },
 ] as const;
 
 
@@ -81,7 +81,7 @@ export function NavigationDrawer() {
             aria-controls="navigation-drawer"
             aria-label={open ? "Close menu" : "Open menu"}
             onClick={() => setOpen((current) => !current)}
-            className="relative h-16 w-16 rounded-full border border-hero-foreground/10 bg-surface text-hero-foreground shadow-2xl transition-all duration-300 hover:bg-hero-foreground hover:text-hero md:h-20 md:w-20"
+            className={`relative h-16 w-16 rounded-full border border-hero-foreground/10 ${open ? "bg-cta-slate hover:scale-105" : "bg-surface hover:bg-hero-foreground hover:text-hero"} text-hero-foreground shadow-2xl transition-all duration-300 md:h-20 md:w-20`}
           >
             <span className="sr-only">{open ? "Close menu" : "Open menu"}</span>
             <motion.span
@@ -122,69 +122,48 @@ export function NavigationDrawer() {
             />
 
             <motion.aside
-              className="absolute inset-y-0 right-0 flex w-[92vw] flex-col justify-between bg-inverse px-7 pb-8 pt-28 text-inverse-foreground sm:w-[72vw] sm:px-12 sm:pb-10 lg:w-[58vw] lg:px-20"
-              variants={{ closed: { x: "115%" }, open: { x: 0 } }}
+              className="absolute inset-y-0 right-0 flex h-screen w-full flex-col justify-between rounded-none border-l border-hero-foreground/5 bg-surface p-12 text-hero-foreground shadow-2xl sm:w-[480px] md:w-[560px] md:p-16"
+              variants={{ closed: { x: "100%" }, open: { x: 0 } }}
               transition={{ duration, ease: [0.76, 0, 0.24, 1] }}
             >
-              <svg
-                aria-hidden
-                viewBox="0 0 150 100"
-                preserveAspectRatio="none"
-                className="pointer-events-none absolute inset-y-0 right-full h-full w-24 text-inverse sm:w-36"
-              >
-                <motion.path
-                  fill="currentColor"
-                  variants={{
-                    closed: { d: "M150 0 L150 100 L150 100 Q150 50 150 0 Z" },
-                    open: { d: "M150 0 L150 100 L75 100 Q0 50 75 0 Z" },
-                  }}
-                  transition={{ duration: duration * 1.15, ease: [0.76, 0, 0.24, 1] }}
-                />
-              </svg>
-
-              <nav aria-label="Drawer navigation">
-                <p className="eyebrow mb-7 text-inverse-muted">Navigation</p>
-                <ul>
+              <nav aria-label="Drawer navigation" className="pt-24">
+                <p className="mb-8 border-b border-hero-foreground/10 pb-4 text-xs uppercase tracking-widest text-surface-muted">Navigation</p>
+                <ul className="flex flex-col gap-6">
                   {LINKS.map((link, index) => (
                     <motion.li
                       key={link.to}
-                      variants={{ closed: { opacity: 0, x: 48 }, open: { opacity: 1, x: 0 } }}
-                      transition={{ delay: reduceMotion ? 0 : 0.18 + index * 0.07, duration: 0.45 }}
+                      variants={{ closed: { opacity: 0, x: 60 }, open: { opacity: 1, x: 0 } }}
+                      transition={{ delay: reduceMotion ? 0 : 0.15 + index * 0.06, duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
                     >
-                      <MagneticItem>
-                        <TransitionLink
-                          href={link.to}
-                          label={link.label}
-                          onClick={() => setOpen(false)}
-                          className="group flex items-center gap-4 py-1 text-[clamp(2.7rem,7vw,6.5rem)] font-semibold uppercase leading-[0.95]"
-                        >
-                          <span
-                            aria-hidden
-                            className={`h-2 w-2 shrink-0 rounded-full bg-inverse-foreground transition-opacity ${pathname === link.to ? "opacity-100" : "opacity-0 group-hover:opacity-40"}`}
-                          />
-                          <span className="transition-opacity group-hover:opacity-60">{link.label}</span>
-                        </TransitionLink>
-                      </MagneticItem>
+                      <TransitionLink
+                        href={link.to}
+                        label={link.label}
+                        onClick={() => setOpen(false)}
+                        className="group relative flex items-center text-5xl font-normal tracking-tight md:text-6xl"
+                      >
+                        <span
+                          aria-hidden
+                          className={`absolute -left-7 h-2.5 w-2.5 rounded-full bg-hero-foreground transition-transform duration-300 ${pathname === link.to ? "scale-100" : "scale-0"}`}
+                        />
+                        <span className="transition-transform duration-300 ease-out group-hover:translate-x-3">{link.label}</span>
+                      </TransitionLink>
                     </motion.li>
                   ))}
                 </ul>
               </nav>
 
               <motion.div
-                className="border-t border-inverse-border pt-6"
                 variants={{ closed: { opacity: 0, y: 20 }, open: { opacity: 1, y: 0 } }}
                 transition={{ delay: reduceMotion ? 0 : 0.45, duration: 0.4 }}
               >
-                <div className="flex flex-wrap gap-x-5 gap-y-2 text-xs font-medium sm:text-sm">
+                <p className="mb-3 text-xs uppercase tracking-widest text-surface-muted">Socials</p>
+                <div className="flex flex-wrap gap-6 text-xs text-surface-soft md:text-sm">
                   {SOCIALS.map((social) => (
-                    <a key={social.label} href={social.href} target="_blank" rel="noreferrer" className="transition-opacity hover:opacity-55">
+                    <a key={social.label} href={social.href} target="_blank" rel="noreferrer" className="transition-colors hover:text-hero-foreground">
                       {social.label}
                     </a>
                   ))}
                 </div>
-                <a href="mailto:titi.uxui@gmail.com" className="mt-5 inline-block text-sm transition-opacity hover:opacity-55 sm:text-base">
-                  titi.uxui@gmail.com
-                </a>
               </motion.div>
             </motion.aside>
           </motion.div>
