@@ -63,7 +63,13 @@ export function Footer() {
       </div>
       <div className="mx-auto w-full max-w-7xl px-4 pb-10 pt-16 sm:px-6">
         <div className="flex items-center gap-5">
-          <div className="h-14 w-14 shrink-0 rounded-full bg-inverse-border sm:h-20 sm:w-20" />
+          <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-full border border-white/10 shadow-lg md:h-28 md:w-28">
+            <img
+              src="/portrait.jpg"
+              alt="Zahra Alizadeh"
+              className="pointer-events-none h-full w-full select-none object-cover object-[center_20%]"
+            />
+          </div>
           <h2 className="display-lg">
             Let's work
             <br />
