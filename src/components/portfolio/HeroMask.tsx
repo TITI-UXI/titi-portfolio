@@ -65,8 +65,13 @@ function DirectionalSlider() {
   );
 
   return (
-    <div className="pointer-events-none absolute inset-x-0 bottom-2 z-10 w-full select-none overflow-hidden whitespace-nowrap md:bottom-6" aria-label="Zahra Alizadeh">
-      <div ref={track} aria-hidden className="flex w-max whitespace-nowrap text-[15vw] font-medium md:text-[13vw] leading-none tracking-tighter text-hero-foreground will-change-transform">
+    <div
+      className="pointer-events-none absolute inset-x-0 z-10 w-full select-none overflow-hidden whitespace-nowrap bottom-[10vh] md:bottom-[14vh] lg:bottom-[16vh]"
+      style={{ fontFamily: "'Neue Montreal', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif" }}
+      aria-label="Zahra Alizadeh"
+    >
+      <div ref={track} aria-hidden className="flex w-max whitespace-nowrap text-[15vw] font-normal md:text-[13vw] leading-[0.9] tracking-[-0.02em] text-hero-foreground will-change-transform">
+
         {half}
         {half}
       </div>
