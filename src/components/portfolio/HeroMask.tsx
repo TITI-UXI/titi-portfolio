@@ -79,12 +79,12 @@ export function HeroMask() {
     <section className="relative h-screen max-h-[1080px] min-h-[680px] w-full overflow-hidden bg-hero text-hero-foreground">
       <p className="absolute left-8 top-8 z-30 text-sm tracking-wide text-hero-foreground/60 md:left-12">© Code by Tina</p>
 
-      <div className="pointer-events-none absolute bottom-0 left-1/2 z-10 flex h-[50vh] max-h-[460px] w-auto max-w-[85vw] -translate-x-1/2 select-none items-end justify-center md:h-[60vh] md:max-h-[580px] md:max-w-[420px] lg:h-[70vh] lg:max-h-[720px] lg:max-w-[500px]">
+      <div className="pointer-events-none absolute bottom-0 left-1/2 z-10 flex h-[58vh] w-[88vw] -translate-x-1/2 select-none items-end justify-center md:h-[78vh] md:w-[580px] md:max-h-[820px] lg:w-[680px]">
         <img
           src="/portrait.jpg"
           alt="Portrait of Tina"
-          className="h-full w-full object-contain object-bottom"
-          style={{ maskImage: "linear-gradient(to bottom, black 85%, transparent 100%)", WebkitMaskImage: "linear-gradient(to bottom, black 85%, transparent 100%)" }}
+          className="h-full w-full select-none object-cover object-[center_20%]"
+          style={{ maskImage: "linear-gradient(to bottom, black 80%, transparent 100%)", WebkitMaskImage: "linear-gradient(to bottom, black 80%, transparent 100%)" }}
         />
       </div>
 
