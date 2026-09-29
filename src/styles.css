@@ -56,6 +56,8 @@
   --color-surface-muted: #8a8b8e;
   --color-surface-soft: #a2a3a6;
   --color-cta: #2b2d31;
+  --color-cta-accent: #455ce9;
+  --color-cta-slate: #3b4b68;
   --color-hero-button: #28292d;
   --font-sans: "Archivo", ui-sans-serif, system-ui, sans-serif;
 }

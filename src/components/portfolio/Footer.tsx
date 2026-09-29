@@ -3,6 +3,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Magnetic } from "@/components/motion/Magnetic";
 import { VelocityMarquee } from "./VelocityMarquee";
+import { TransitionLink } from "./CurvedTransition";
 
 function LocalTime() {
   const [time, setTime] = useState("");
@@ -30,7 +31,7 @@ function FillButton({ href, children }: { href: string; children: React.ReactNod
     gsap.to(fill, { scale, duration: 0.6, ease: "power3.out", overwrite: true });
   };
   return (
-    <a
+    <TransitionLink
       href={href}
       onMouseEnter={(e) => place(e, 1)}
       onMouseLeave={(e) => place(e, 0)}
@@ -42,7 +43,7 @@ function FillButton({ href, children }: { href: string; children: React.ReactNod
         className="pointer-events-none absolute h-[300%] w-[300%] -translate-x-1/2 -translate-y-1/2 scale-0 rounded-full bg-surface-soft"
       />
       <span className="relative">{children}</span>
-    </a>
+    </TransitionLink>
   );
 }
 
@@ -109,7 +110,7 @@ export function Footer() {
         <div className="relative mt-20 border-t border-inverse-border md:mt-28">
           <div className="absolute right-4 top-0 z-10 -translate-y-1/2 sm:right-16">
             <Magnetic strength={0.45}>
-              <FillButton href="mailto:titi.uxui@gmail.com">Get in touch</FillButton>
+              <FillButton href="/contact">Get in touch</FillButton>
             </Magnetic>
           </div>
         </div>
