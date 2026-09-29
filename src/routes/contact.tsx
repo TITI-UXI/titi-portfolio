@@ -26,7 +26,7 @@ const FIELDS = [
 
 const SOCIALS = [
   { label: "Instagram", href: "https://instagram.com/titi-uxi" },
-  { label: "Telegram", href: "https://t.me/titi_uxi" },
+  { label: "Telegram", href: "https://t.me/titi_uxui" },
   { label: "GitHub", href: "https://github.com/TITI_UXI" },
   { label: "LinkedIn", href: "https://linkedin.com/" },
 ];
@@ -141,7 +141,7 @@ function ContactPage() {
               <p className="mb-3 text-xs uppercase tracking-widest text-surface-soft">Contact details</p>
               <ul className="space-y-2 text-lg">
                 <li><a href="mailto:titi.uxui@gmail.com" className="transition-opacity hover:opacity-60">titi.uxui@gmail.com</a></li>
-                <li><a href="https://t.me/titi_uxi" target="_blank" rel="noreferrer" className="transition-opacity hover:opacity-60">Message on Telegram</a></li>
+                <li><a href="https://t.me/titi_uxui" target="_blank" rel="noreferrer" className="transition-opacity hover:opacity-60">Message on Telegram</a></li>
               </ul>
             </div>
             <div>
@@ -160,6 +160,25 @@ function ContactPage() {
               </ul>
             </div>
           </aside>
+        </div>
+
+        <div className="mt-24 flex flex-col items-start justify-between gap-8 border-t border-white/10 pb-8 pt-6 text-xs text-surface-muted md:flex-row md:items-center">
+          <div>
+            <p className="mb-1 uppercase tracking-wider text-surface-muted">Version</p>
+            <p className="tracking-wider text-surface-soft">2026 © Edition</p>
+          </div>
+          <div>
+            <p className="mb-1 uppercase tracking-wider text-surface-muted">Local time</p>
+            <p className="tracking-wider text-surface-soft"><LocalTime /> — Rasht, Iran</p>
+          </div>
+          <div>
+            <p className="mb-1 uppercase tracking-wider text-surface-muted">Socials</p>
+            <div className="flex gap-5">
+              {SOCIALS.map((s) => (
+                <a key={s.label} href={s.href} target="_blank" rel="noreferrer" className="text-surface-soft transition-colors hover:text-hero-foreground">{s.label}</a>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </main>
