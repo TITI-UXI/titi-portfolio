@@ -78,7 +78,7 @@ export function About() {
   return (
     <section
       id="about"
-      className="bg-inverse px-4 py-28 text-inverse-foreground sm:px-6"
+      className="bg-surface px-4 py-28 text-inverse-foreground sm:px-6"
     >
       <div className="mx-auto w-full max-w-7xl">
         <p className="eyebrow mb-10 text-inverse-muted">About</p>
