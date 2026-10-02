@@ -11,7 +11,7 @@ import gsap from "gsap";
 
 export const NAVIGATION_READY_EVENT = "tina:navigation-ready";
 
-const APP_ROUTES = ["/", "/work", "/about", "/contact"] as const;
+const APP_ROUTES = ["/", "/work", "/gallery", "/about", "/contact"] as const;
 const INITIAL_CURVE = "M0 0 L1 0 L1 1 Q0.5 1.2 0 1 Z";
 const EXIT_CURVE = "M0 0 L1 0 L1 1 Q0.5 1 0 1 Z";
 const HOLD_MS = 300;
@@ -33,6 +33,7 @@ function labelFor(pathname: string, hash = "") {
   if (pathname === "/work" || hash === "#work") return "Work";
   if (pathname === "/about" || hash === "#about") return "About";
   if (pathname === "/contact" || hash === "#contact") return "Contact";
+  if (pathname === "/gallery") return "Gallery";
   if (hash === "#services") return "Services";
   return "Home";
 }

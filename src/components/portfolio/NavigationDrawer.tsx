@@ -7,6 +7,7 @@ import { TransitionLink } from "@/components/portfolio/CurvedTransition";
 const LINKS = [
   { label: "Home", to: "/" },
   { label: "Work", to: "/work" },
+  { label: "Gallery", to: "/gallery" },
   { label: "About", to: "/about" },
   { label: "Contact", to: "/contact" },
 ] as const;

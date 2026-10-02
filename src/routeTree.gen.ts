@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as WorkRouteImport } from './routes/work'
 
 const IndexRoute = IndexRouteImport.update({
@@ -29,6 +30,11 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GalleryRoute = GalleryRouteImport.update({
+  id: '/gallery',
+  path: '/gallery',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const WorkRoute = WorkRouteImport.update({
   id: '/work',
   path: '/work',
@@ -39,12 +45,14 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/gallery': typeof GalleryRoute
   '/work': typeof WorkRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/gallery': typeof GalleryRoute
   '/work': typeof WorkRoute
 }
 export interface FileRoutesById {
@@ -52,20 +60,22 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/gallery': typeof GalleryRoute
   '/work': typeof WorkRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/contact' | '/work'
+  fullPaths: '/' | '/about' | '/contact' | '/gallery' | '/work'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/contact' | '/work'
-  id: '__root__' | '/' | '/about' | '/contact' | '/work'
+  to: '/' | '/about' | '/contact' | '/gallery' | '/work'
+  id: '__root__' | '/' | '/about' | '/contact' | '/gallery' | '/work'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   ContactRoute: typeof ContactRoute
+  GalleryRoute: typeof GalleryRoute
   WorkRoute: typeof WorkRoute
 }
 
@@ -92,6 +102,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/gallery': {
+      id: '/gallery'
+      path: '/gallery'
+      fullPath: '/gallery'
+      preLoaderRoute: typeof GalleryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/work': {
       id: '/work'
       path: '/work'
@@ -106,6 +123,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   ContactRoute: ContactRoute,
+  GalleryRoute: GalleryRoute,
   WorkRoute: WorkRoute,
 }
 export const routeTree = rootRouteImport
