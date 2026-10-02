@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { HeroReveal } from "./HeroReveal";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -80,8 +81,9 @@ function DirectionalSlider() {
 }
 
 export function HeroMask() {
+  const sectionRef = useRef<HTMLElement>(null);
   return (
-    <section className="relative h-screen max-h-[1080px] min-h-[680px] w-full overflow-hidden bg-hero text-hero-foreground">
+    <section ref={sectionRef} className="relative h-screen max-h-[1080px] min-h-[680px] w-full overflow-hidden bg-hero text-hero-foreground">
       <p className="absolute left-8 top-8 z-20 text-sm tracking-wide text-hero-foreground/60 md:left-12">© Code by Tina</p>
 
       <div className="pointer-events-none absolute inset-0 z-0 h-full w-full select-none overflow-hidden">
@@ -93,6 +95,8 @@ export function HeroMask() {
       </div>
 
       <div className="pointer-events-none absolute inset-0 z-[1] bg-black/40" />
+
+      <HeroReveal containerRef={sectionRef} />
 
       <div className="absolute left-0 top-[42%] z-20 flex -translate-y-1/2 items-center gap-3 rounded-r-full border-y border-r border-hero-foreground/10 bg-hero-surface py-3 pl-8 pr-4 text-xs tracking-wider text-hero-foreground/85 shadow-xl md:pl-12">
         <span className="leading-tight">Located<br />in Iran</span>
