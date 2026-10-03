@@ -10,6 +10,7 @@
 - [ ] Browser-verify navbar hide/reveal, hover pill, anchor scrolling, and the footer/marquee changes
 - [ ] Browser-verify mobile layout of drawer and sub-pages
 - [x] Browser-verify labeled curved transitions across routes, compact menu navigation, and browser history
+- [x] Browser-verify staggered grayscale drawer entry, reverse exit, and link reveal
 
 ## Ready
 - Add TINA's WhatsApp phone number to complete the WhatsApp link (waiting on user)
