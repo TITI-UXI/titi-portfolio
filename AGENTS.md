@@ -12,4 +12,5 @@
 - Keep the scroll-mask portrait at `/portrait.jpg`; the hero uses a GSAP-driven CSS radial mask for a soft, SSR-safe reveal.
 - Coordinate the preloader and scroll-mask with the `tina:preloader-complete` browser event so ScrollTrigger refreshes after the reveal.
 - Use `NavigationDrawer` as the sole persistent navigation; keep its destinations aligned with the existing top, work, about, and contact section IDs.
+- Build the drawer reveal as staggered grayscale curtain layers behind its final content panel, so the trigger and navigation layout remain independent of the animation.
 - Route and section navigation must use `TransitionLink` from `CurvedTransition`; it owns the global curtain, URL timing, labels, scrolling signals, and history behavior so navigation cannot bypass the wipe.

@@ -19,6 +19,41 @@ const SOCIALS = [
   { label: "LinkedIn", href: "https://linkedin.com/" },
 ] as const;
 
+const CURTAIN_PANELS = [
+  "bg-menu-graphite",
+  "bg-menu-charcoal",
+  "bg-menu-obsidian",
+  "bg-menu-canvas",
+] as const;
+
+const DRAWER_EASE = [0.76, 0, 0.24, 1] as const;
+
+const curtainGroupVariants = {
+  closed: {
+    transition: {
+      staggerChildren: 0.05,
+      staggerDirection: -1,
+      when: "afterChildren" as const,
+    },
+  },
+  open: {
+    transition: {
+      staggerChildren: 0.05,
+      staggerDirection: 1,
+    },
+  },
+};
+
+const curtainPanelVariants = {
+  closed: { x: "100%" },
+  open: { x: 0 },
+};
+
+const linkVariants = {
+  closed: { y: 30, opacity: 0 },
+  open: { y: 0, opacity: 1 },
+};
+
 
 function MagneticItem({ children, strength = 0.22 }: { children: ReactNode; strength?: number }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -68,7 +103,8 @@ export function NavigationDrawer() {
     };
   }, [open]);
 
-  const duration = reduceMotion ? 0.15 : 0.7;
+  const duration = reduceMotion ? 0.15 : 0.75;
+  const panelTransition = { duration, ease: DRAWER_EASE };
 
   return (
     <>
@@ -122,19 +158,53 @@ export function NavigationDrawer() {
               transition={{ duration: duration * 0.6 }}
             />
 
+            <motion.div
+              className="pointer-events-none absolute inset-y-0 right-0 w-full sm:w-[480px] md:w-[560px]"
+              variants={curtainGroupVariants}
+            >
+              {CURTAIN_PANELS.map((panelClass) => (
+                <motion.div
+                  key={panelClass}
+                  aria-hidden
+                  className={`absolute inset-0 ${panelClass}`}
+                  variants={curtainPanelVariants}
+                  transition={panelTransition}
+                />
+              ))}
+            </motion.div>
+
             <motion.aside
               className="absolute inset-y-0 right-0 flex h-screen w-full flex-col justify-between rounded-none border-l border-hero-foreground/5 bg-surface p-12 text-hero-foreground shadow-2xl sm:w-[480px] md:w-[560px] md:p-16"
-              variants={{ closed: { x: "100%" }, open: { x: 0 } }}
-              transition={{ duration, ease: [0.76, 0, 0.24, 1] }}
+              variants={curtainPanelVariants}
+              transition={panelTransition}
             >
-              <nav aria-label="Drawer navigation" className="pt-24">
-                <p className="mb-8 border-b border-hero-foreground/10 pb-4 text-xs uppercase tracking-widest text-surface-muted">Navigation</p>
+              <motion.nav
+                aria-label="Drawer navigation"
+                className="pt-24"
+                variants={{
+                  closed: { transition: { staggerChildren: 0.04, staggerDirection: -1 } },
+                  open: {
+                    transition: {
+                      delayChildren: reduceMotion ? 0 : 0.82,
+                      staggerChildren: reduceMotion ? 0 : 0.06,
+                    },
+                  },
+                }}
+              >
+                <motion.p
+                  className="mb-8 border-b border-hero-foreground/10 pb-4 text-xs uppercase tracking-widest text-surface-muted"
+                  variants={linkVariants}
+                  transition={{ duration: reduceMotion ? 0.1 : 0.45, ease: DRAWER_EASE }}
+                >
+                  Navigation
+                </motion.p>
                 <ul className="flex flex-col gap-6">
                   {LINKS.map((link, index) => (
                     <motion.li
                       key={link.to}
-                      variants={{ closed: { opacity: 0, x: 60 }, open: { opacity: 1, x: 0 } }}
-                      transition={{ delay: reduceMotion ? 0 : 0.15 + index * 0.06, duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
+                      custom={index}
+                      variants={linkVariants}
+                      transition={{ duration: reduceMotion ? 0.1 : 0.5, ease: DRAWER_EASE }}
                     >
                       <TransitionLink
                         href={link.to}
@@ -151,11 +221,11 @@ export function NavigationDrawer() {
                     </motion.li>
                   ))}
                 </ul>
-              </nav>
+              </motion.nav>
 
               <motion.div
                 variants={{ closed: { opacity: 0, y: 20 }, open: { opacity: 1, y: 0 } }}
-                transition={{ delay: reduceMotion ? 0 : 0.45, duration: 0.4 }}
+                transition={{ delay: reduceMotion ? 0 : 1.08, duration: reduceMotion ? 0.1 : 0.4 }}
               >
                 <p className="mb-3 text-xs uppercase tracking-widest text-surface-muted">Socials</p>
                 <div className="flex flex-wrap gap-6 text-xs text-surface-soft md:text-sm">
