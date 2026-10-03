@@ -13,10 +13,10 @@ const LINKS = [
 ] as const;
 
 const SOCIALS = [
-  { label: "Awwwards", href: "https://www.awwwards.com/" },
+  { label: "LinkedIn", href: "https://linkedin.com/" },
   { label: "Instagram", href: "https://instagram.com/titi-uxi" },
   { label: "Telegram", href: "https://t.me/titi_uxui" },
-  { label: "LinkedIn", href: "https://linkedin.com/" },
+  { label: "GitHub", href: "https://github.com/TITI_UXI" },
 ] as const;
 
 const CURTAIN_PANELS = [
@@ -29,13 +29,7 @@ const CURTAIN_PANELS = [
 const DRAWER_EASE = [0.76, 0, 0.24, 1] as const;
 
 const curtainGroupVariants = {
-  closed: {
-    transition: {
-      staggerChildren: 0.05,
-      staggerDirection: -1,
-      when: "afterChildren" as const,
-    },
-  },
+  closed: { transition: { staggerChildren: 0 } },
   open: {
     transition: {
       staggerChildren: 0.05,
@@ -45,8 +39,8 @@ const curtainGroupVariants = {
 };
 
 const curtainPanelVariants = {
-  closed: { x: "100%" },
-  open: { x: 0 },
+  closed: { x: "100%", transition: { duration: 0.35, ease: "easeInOut" as const } },
+  open: { x: 0, transition: { duration: 0.75, ease: [0.76, 0, 0.24, 1] as const } },
 };
 
 const linkVariants = {
@@ -104,7 +98,6 @@ export function NavigationDrawer() {
   }, [open]);
 
   const duration = reduceMotion ? 0.15 : 0.75;
-  const panelTransition = { duration, ease: DRAWER_EASE };
 
   return (
     <>
@@ -155,7 +148,7 @@ export function NavigationDrawer() {
               onClick={() => setOpen(false)}
               className="absolute inset-0 cursor-default bg-foreground/45"
               variants={{ closed: { opacity: 0 }, open: { opacity: 1 } }}
-              transition={{ duration: duration * 0.6 }}
+              transition={{ duration: 0.35 }}
             />
 
             <motion.div
@@ -168,21 +161,19 @@ export function NavigationDrawer() {
                   aria-hidden
                   className={`absolute inset-0 ${panelClass}`}
                   variants={curtainPanelVariants}
-                  transition={panelTransition}
                 />
               ))}
             </motion.div>
 
             <motion.aside
-              className="absolute inset-y-0 right-0 flex h-screen w-full flex-col justify-between rounded-none border-l border-hero-foreground/5 bg-surface p-12 text-hero-foreground shadow-2xl sm:w-[480px] md:w-[560px] md:p-16"
+              className="absolute inset-y-0 right-0 flex h-[100dvh] w-full select-none flex-col justify-between rounded-none border-l border-hero-foreground/5 bg-surface px-8 py-12 text-hero-foreground shadow-2xl sm:w-[480px] md:w-[560px] md:px-14 md:py-16"
               variants={curtainPanelVariants}
-              transition={panelTransition}
             >
               <motion.nav
                 aria-label="Drawer navigation"
-                className="pt-24"
+                className="flex flex-1 flex-col"
                 variants={{
-                  closed: { transition: { staggerChildren: 0.04, staggerDirection: -1 } },
+                  closed: { transition: { staggerChildren: 0 } },
                   open: {
                     transition: {
                       delayChildren: reduceMotion ? 0 : 0.82,
@@ -192,13 +183,13 @@ export function NavigationDrawer() {
                 }}
               >
                 <motion.p
-                  className="mb-8 border-b border-hero-foreground/10 pb-4 text-xs uppercase tracking-widest text-surface-muted"
+                  className="border-b border-hero-foreground/5 pb-4 text-[11px] uppercase tracking-[0.25em] text-surface-muted"
                   variants={linkVariants}
                   transition={{ duration: reduceMotion ? 0.1 : 0.45, ease: DRAWER_EASE }}
                 >
                   Navigation
                 </motion.p>
-                <ul className="flex flex-col gap-6">
+                <ul className="my-auto flex flex-col space-y-4 py-8 md:space-y-6">
                   {LINKS.map((link, index) => (
                     <motion.li
                       key={link.to}
@@ -212,9 +203,10 @@ export function NavigationDrawer() {
                         onClick={() => setOpen(false)}
                         className="group relative flex items-center text-5xl font-normal tracking-tight md:text-6xl"
                       >
+                        <span className="w-8 shrink-0 font-mono text-xs tracking-wider text-surface-muted">{String(index + 1).padStart(2, "0")}</span>
                         <span
                           aria-hidden
-                          className={`absolute -left-7 h-2.5 w-2.5 rounded-full bg-hero-foreground transition-transform duration-300 ${pathname === link.to ? "scale-100" : "scale-0"}`}
+                          className={`absolute -left-5 h-2.5 w-2.5 rounded-full bg-hero-foreground transition-transform duration-300 ${pathname === link.to ? "scale-100" : "scale-0"}`}
                         />
                         <span className="transition-transform duration-300 ease-out group-hover:translate-x-3">{link.label}</span>
                       </TransitionLink>
@@ -224,13 +216,15 @@ export function NavigationDrawer() {
               </motion.nav>
 
               <motion.div
-                variants={{ closed: { opacity: 0, y: 20 }, open: { opacity: 1, y: 0 } }}
-                transition={{ delay: reduceMotion ? 0 : 1.08, duration: reduceMotion ? 0.1 : 0.4 }}
+                variants={{
+                  closed: { opacity: 0, y: 20, transition: { duration: 0.2 } },
+                  open: { opacity: 1, y: 0, transition: { delay: reduceMotion ? 0 : 1.08, duration: reduceMotion ? 0.1 : 0.4 } },
+                }}
               >
-                <p className="mb-3 text-xs uppercase tracking-widest text-surface-muted">Socials</p>
-                <div className="flex flex-wrap gap-6 text-xs text-surface-soft md:text-sm">
+                <p className="mb-3 text-[10px] uppercase tracking-[0.2em] text-surface-muted">Socials</p>
+                <div className="flex flex-wrap items-center gap-6 text-xs text-surface-soft">
                   {SOCIALS.map((social) => (
-                    <a key={social.label} href={social.href} target="_blank" rel="noreferrer" className="transition-colors hover:text-hero-foreground">
+                    <a key={social.label} href={social.href} target="_blank" rel="noreferrer" className="transition-colors duration-300 hover:text-hero-foreground">
                       {social.label}
                     </a>
                   ))}
