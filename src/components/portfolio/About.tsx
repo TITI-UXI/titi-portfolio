@@ -1,11 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import {
   motion,
-  useScroll,
-  useTransform,
   useInView,
   animate,
-  type MotionValue,
+  type Variants,
 } from "framer-motion";
 
 const STATEMENT =
@@ -17,27 +15,55 @@ const metrics = [
   { value: 99, suffix: "%", label: "Performance & Frame-rate Integrity" },
 ];
 
-function Word({
-  children,
-  progress,
-  range,
-}: {
-  children: string;
-  progress: MotionValue<number>;
-  range: [number, number];
-}) {
-  const t = useTransform(progress, range, [0, 1]);
-  const opacity = useTransform(t, [0, 1], [0.3, 1]);
-  const y = useTransform(t, [0, 1], [12, 0]);
-  const filter = useTransform(t, (v) => `blur(${(1 - v) * 4}px)`);
+/* React Bits "Blur Text" — word-by-word blur reveal.
+ * Container staggers children 0.035s apart; each word rises 16px
+ * out of a 10px blur over 0.45s once the paragraph is 35% in view. */
+const BLUR_CONTAINER: Variants = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.035 },
+  },
+};
+
+const BLUR_WORD: Variants = {
+  hidden: {
+    opacity: 0,
+    filter: "blur(10px)",
+    y: 16,
+  },
+  visible: {
+    opacity: 1,
+    filter: "blur(0px)",
+    y: 0,
+    transition: {
+      duration: 0.45,
+      ease: [0.2, 0.65, 0.3, 0.9],
+    },
+  },
+};
+
+function BlurText({ text }: { text: string }) {
+  const words = text.split(" ");
 
   return (
-    <motion.span
-      style={{ opacity, y, filter }}
-      className="inline-block will-change-[filter,transform]"
+    <motion.p
+      variants={BLUR_CONTAINER}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.35 }}
+      className="max-w-4xl text-2xl font-medium leading-snug tracking-tight sm:text-4xl"
     >
-      {children}
-    </motion.span>
+      {words.map((word, i) => (
+        <motion.span
+          key={`${word}-${i}`}
+          variants={BLUR_WORD}
+          className="inline-block will-change-[filter,opacity,transform]"
+        >
+          {word}
+          {"\u00A0"}
+        </motion.span>
+      ))}
+    </motion.p>
   );
 }
 
