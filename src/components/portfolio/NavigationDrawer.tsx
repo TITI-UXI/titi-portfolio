@@ -39,12 +39,12 @@ const curtainGroupVariants = {
 };
 
 const curtainPanelVariants = {
-  closed: { x: "100%", transition: { duration: 0.3, ease: "easeInOut" as const } },
+  closed: { x: "100%", transition: { duration: 0.35, ease: "easeInOut" as const } },
   open: { x: 0, transition: { duration: 0.75, ease: [0.76, 0, 0.24, 1] as const } },
 };
 
 const linkVariants = {
-  closed: { y: 40, opacity: 0 },
+  closed: { y: 30, opacity: 0 },
   open: { y: 0, opacity: 1 },
 };
 
@@ -96,6 +96,8 @@ export function NavigationDrawer() {
       window.removeEventListener("keydown", onKeyDown);
     };
   }, [open]);
+
+  const duration = reduceMotion ? 0.15 : 0.75;
 
   return (
     <>
@@ -189,7 +191,8 @@ export function NavigationDrawer() {
                 </motion.p>
                 <ul className="my-auto flex flex-col space-y-4 py-8 md:space-y-6">
                   {LINKS.map((link, index) => (
-                    <li key={link.to} className="overflow-hidden py-1"><motion.div
+                    <motion.li
+                      key={link.to}
                       custom={index}
                       variants={linkVariants}
                       transition={{ duration: reduceMotion ? 0.1 : 0.5, ease: DRAWER_EASE }}
@@ -207,7 +210,7 @@ export function NavigationDrawer() {
                         />
                         <span className="transition-transform duration-300 ease-out group-hover:translate-x-3">{link.label}</span>
                       </TransitionLink>
-                    </motion.div></li>
+                    </motion.li>
                   ))}
                 </ul>
               </motion.nav>

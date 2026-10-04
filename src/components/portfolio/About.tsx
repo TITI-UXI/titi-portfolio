@@ -1,8 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import {
   motion,
+  useScroll,
+  useTransform,
   useInView,
   animate,
+  type MotionValue,
 } from "framer-motion";
 
 const STATEMENT =
@@ -14,13 +17,23 @@ const metrics = [
   { value: 99, suffix: "%", label: "Performance & Frame-rate Integrity" },
 ];
 
-function Word({ children, index }: { children: string; index: number }) {
+function Word({
+  children,
+  progress,
+  range,
+}: {
+  children: string;
+  progress: MotionValue<number>;
+  range: [number, number];
+}) {
+  const t = useTransform(progress, range, [0, 1]);
+  const opacity = useTransform(t, [0, 1], [0.3, 1]);
+  const y = useTransform(t, [0, 1], [12, 0]);
+  const filter = useTransform(t, (v) => `blur(${(1 - v) * 4}px)`);
+
   return (
     <motion.span
-      initial={{ opacity: 0, filter: "blur(12px)", y: 24 }}
-      whileInView={{ opacity: 1, filter: "blur(0px)", y: 0 }}
-      viewport={{ once: true, margin: "-10% 0px" }}
-      transition={{ duration: 0.7, ease: [0.2, 0.65, 0.3, 0.9], delay: index * 0.035 }}
+      style={{ opacity, y, filter }}
       className="inline-block will-change-[filter,transform]"
     >
       {children}
@@ -54,6 +67,11 @@ function Counter({ value, suffix }: { value: number; suffix: string }) {
 }
 
 export function About() {
+  const statementRef = useRef<HTMLParagraphElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: statementRef,
+    offset: ["start 0.85", "start 0.3"],
+  });
 
   const words = STATEMENT.split(" ");
 
@@ -66,11 +84,17 @@ export function About() {
         <p className="eyebrow mb-10 text-inverse-muted">About</p>
 
         <p
+          ref={statementRef}
           className="max-w-4xl text-2xl font-medium leading-snug tracking-tight sm:text-4xl"
         >
           {words.map((word, i) => (
             <span key={`${word}-${i}`}>
-              <Word index={i}>{word}</Word>{" "}
+              <Word
+                progress={scrollYProgress}
+                range={[i / words.length, Math.min(1, (i + 1.5) / words.length)]}
+              >
+                {word}
+              </Word>{" "}
             </span>
           ))}
         </p>

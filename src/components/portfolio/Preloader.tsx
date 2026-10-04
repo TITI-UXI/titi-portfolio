@@ -1,4 +1,4 @@
-import { useLayoutEffect, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 
 const GREETINGS = ["Hello", "Bonjour", "Ciao", "Olà", "やあ", "Hallå", "Guten Tag", "سلام"];
@@ -12,14 +12,10 @@ export function Preloader() {
   const [greetingIndex, setGreetingIndex] = useState(0);
   const [visible, setVisible] = useState(true);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
+    if (typeof window === "undefined") return;
     const overlay = overlayRef.current;
     if (!overlay) return;
-    if (window.sessionStorage.getItem("hasSeenIntro")) {
-      setVisible(false);
-      requestAnimationFrame(() => window.dispatchEvent(new CustomEvent(PRELOADER_COMPLETE_EVENT)));
-      return;
-    }
 
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
@@ -39,7 +35,6 @@ export function Preloader() {
           duration: 0.9,
           ease: "power4.inOut",
           onComplete: () => {
-            window.sessionStorage.setItem("hasSeenIntro", "true");
             setVisible(false);
             window.dispatchEvent(new CustomEvent(PRELOADER_COMPLETE_EVENT));
           },
