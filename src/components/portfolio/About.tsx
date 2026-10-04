@@ -93,14 +93,6 @@ function Counter({ value, suffix }: { value: number; suffix: string }) {
 }
 
 export function About() {
-  const statementRef = useRef<HTMLParagraphElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: statementRef,
-    offset: ["start 0.85", "start 0.3"],
-  });
-
-  const words = STATEMENT.split(" ");
-
   return (
     <section
       id="about"
@@ -109,21 +101,7 @@ export function About() {
       <div className="mx-auto w-full max-w-7xl">
         <p className="eyebrow mb-10 text-inverse-muted">About</p>
 
-        <p
-          ref={statementRef}
-          className="max-w-4xl text-2xl font-medium leading-snug tracking-tight sm:text-4xl"
-        >
-          {words.map((word, i) => (
-            <span key={`${word}-${i}`}>
-              <Word
-                progress={scrollYProgress}
-                range={[i / words.length, Math.min(1, (i + 1.5) / words.length)]}
-              >
-                {word}
-              </Word>{" "}
-            </span>
-          ))}
-        </p>
+        <BlurText text={STATEMENT} />
 
         <dl className="mt-20 grid grid-cols-1 gap-px border-t border-inverse-border sm:grid-cols-3">
           {metrics.map((metric) => (
