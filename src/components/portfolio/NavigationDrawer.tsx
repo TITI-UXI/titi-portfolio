@@ -23,7 +23,6 @@ const CURTAIN_PANELS = [
   "bg-menu-graphite",
   "bg-menu-charcoal",
   "bg-menu-obsidian",
-  "bg-menu-canvas",
 ] as const;
 
 const DRAWER_EASE = [0.76, 0, 0.24, 1] as const;
@@ -164,7 +163,7 @@ export function NavigationDrawer() {
             </motion.div>
 
             <motion.aside
-              className="absolute inset-y-0 right-0 flex h-[100dvh] w-full select-none flex-col justify-between rounded-none border-l border-hero-foreground/5 bg-surface px-8 py-12 text-hero-foreground shadow-2xl sm:w-[480px] md:w-[560px] md:px-14 md:py-16"
+              className="absolute inset-y-0 right-0 flex h-[100dvh] w-full select-none flex-col justify-between rounded-none border-l border-hero-foreground/5 bg-surface px-10 py-10 text-hero-foreground shadow-2xl sm:w-[480px] md:w-[560px] md:px-16"
               variants={curtainPanelVariants}
             >
               <motion.nav
@@ -187,7 +186,7 @@ export function NavigationDrawer() {
                 >
                   Navigation
                 </motion.p>
-                <ul className="my-auto flex flex-col space-y-4 py-8 md:space-y-6">
+                <ul className="my-auto flex flex-col space-y-4 py-6 md:space-y-6">
                   {LINKS.map((link, index) => (
                     <li key={link.to} className="overflow-hidden py-1"><motion.div
                       custom={index}
@@ -218,13 +217,15 @@ export function NavigationDrawer() {
                   open: { opacity: 1, y: 0, transition: { delay: reduceMotion ? 0 : 1.08, duration: reduceMotion ? 0.1 : 0.4 } },
                 }}
               >
-                <p className="mb-3 text-[10px] uppercase tracking-[0.2em] text-surface-muted">Socials</p>
-                <div className="flex flex-wrap items-center gap-6 text-xs text-surface-soft">
+                <div className="border-t border-hero-foreground/5 pt-6">
+                <p className="mb-3 text-[10px] uppercase tracking-widest text-surface-muted">Socials</p>
+                <div className="flex flex-wrap items-center gap-5 text-xs text-surface-soft">
                   {SOCIALS.map((social) => (
                     <a key={social.label} href={social.href} target="_blank" rel="noreferrer" className="transition-colors duration-300 hover:text-hero-foreground">
                       {social.label}
                     </a>
                   ))}
+                </div>
                 </div>
               </motion.div>
             </motion.aside>
