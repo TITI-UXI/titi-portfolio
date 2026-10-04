@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type MouseEvent as ReactMouseEvent } from 
 import { createFileRoute } from "@tanstack/react-router";
 import gsap from "gsap";
 import { AnimatePresence, motion } from "framer-motion";
+import { Footer } from "@/components/portfolio/Footer";
 import { TransitionLink } from "@/components/portfolio/CurvedTransition";
 
 export const Route = createFileRoute("/work")({
@@ -110,7 +111,7 @@ function WorkPage() {
     <main className="min-h-screen bg-canvas px-4 pb-32 pt-32 text-foreground sm:px-6 sm:pt-40">
       <div className="mx-auto w-full max-w-7xl">
         <p className="eyebrow text-ink-soft">Work — 2024 / 2026</p>
-        <h1 className="display-xl mt-6 max-w-5xl">
+        <h1 className="mt-6 max-w-4xl text-5xl font-normal leading-[1.08] tracking-tight md:text-6xl lg:text-7xl">
           Creating next level digital products
         </h1>
 
@@ -263,6 +264,7 @@ function WorkPage() {
           </TransitionLink>
         </div>
       </div>
+      <Footer />
     </main>
   );
 }
