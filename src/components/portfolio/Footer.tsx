@@ -35,7 +35,7 @@ function FillButton({ href, children }: { href: string; children: React.ReactNod
       href={href}
       onMouseEnter={(e) => place(e, 1)}
       onMouseLeave={(e) => place(e, 0)}
-      className="relative flex h-44 w-44 items-center justify-center overflow-hidden rounded-full bg-cta text-center text-lg font-medium text-inverse-foreground md:h-52 md:w-52"
+      className="relative flex h-36 w-36 shrink-0 items-center justify-center overflow-hidden rounded-full bg-cta text-center text-base font-medium text-inverse-foreground shadow-xl transition-transform duration-300 hover:scale-105 md:h-44 md:w-44 md:text-lg"
     >
       <span
         ref={fillRef}
@@ -75,7 +75,7 @@ export function Footer({ lipClassName = "bg-canvas" }: { lipClassName?: string }
     <footer
       ref={footerRef}
       id="contact"
-      className="relative overflow-hidden bg-inverse text-inverse-foreground"
+      className="relative flex min-h-[90vh] w-full select-none flex-col justify-between overflow-hidden bg-inverse pb-12 text-inverse-foreground md:min-h-screen"
     >
       {/* Curved lip of the light page that flattens as you reach the bottom */}
       <div className="pointer-events-none absolute inset-x-0 top-0 z-10">
@@ -85,37 +85,33 @@ export function Footer({ lipClassName = "bg-canvas" }: { lipClassName?: string }
         />
       </div>
 
-      <div className="pt-[14vw]">
+      <div className="my-8 overflow-hidden pt-[10vw] md:my-12">
         <VelocityMarquee text="Available for freelance & collaborations — TINA — " />
       </div>
-      <div className="mx-auto w-full max-w-7xl px-4 pb-10 pt-16 sm:px-6">
+      <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col justify-between px-8 md:px-16">
         <div className="flex items-start justify-between gap-6">
-          <div className="flex items-center gap-5 md:gap-8">
-            <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-full border border-white/10 shadow-lg md:h-24 md:w-24">
+          <h2 className="flex min-w-0 items-center gap-5 text-4xl font-normal leading-tight tracking-tight md:text-6xl lg:text-7xl">
+            <span className="inline-block h-14 w-14 shrink-0 overflow-hidden rounded-full border border-white/10 align-middle md:h-20 md:w-20">
               <img
                 src="/portrait.jpg"
                 alt="Zahra Alizadeh"
                 className="pointer-events-none h-full w-full select-none object-cover object-[center_20%]"
               />
-            </div>
-            <h2 className="text-5xl font-normal leading-[1] tracking-tight md:text-7xl lg:text-8xl">
-              Let's work
-              <br />
-              together
-            </h2>
-          </div>
-          <span aria-hidden className="mt-2 text-3xl text-surface-soft">↘</span>
+            </span>
+            <span>Let's work together</span>
+          </h2>
+          <span aria-hidden className="mt-2 shrink-0 text-3xl text-surface-soft">↘</span>
         </div>
 
-        <div className="relative mt-20 border-t border-inverse-border md:mt-28">
-          <div className="absolute right-4 top-0 z-10 -translate-y-1/2 sm:right-16">
+        <div className="relative my-10 flex w-full items-center border-t border-inverse-border md:my-14">
+          <div className="ml-auto mr-12 -translate-y-1/2 md:mr-24 absolute right-0 top-0 z-10">
             <Magnetic strength={0.45}>
               <FillButton href="/contact">Get in touch</FillButton>
             </Magnetic>
           </div>
         </div>
 
-        <div className="mt-32 flex flex-wrap gap-3 sm:mt-36">
+        <div className="mt-20 flex flex-wrap gap-3 md:mt-24">
           {[
             { label: "titi.uxui@gmail.com", href: "mailto:titi.uxui@gmail.com" },
             { label: "Telegram @titi-uxi", href: "https://t.me/titi_uxi" },
@@ -123,7 +119,7 @@ export function Footer({ lipClassName = "bg-canvas" }: { lipClassName?: string }
             <Magnetic key={pill.label}>
               <a
                 href={pill.href}
-                className="block rounded-full border border-white/15 bg-transparent px-7 py-4 text-sm font-light text-inverse-foreground transition-colors hover:border-white/40 md:text-base"
+                className="block rounded-full border border-white/10 px-6 py-3.5 text-xs text-surface-soft transition-colors hover:border-white hover:text-inverse-foreground md:px-8 md:py-4 md:text-sm"
               >
                 {pill.label}
               </a>
@@ -131,7 +127,7 @@ export function Footer({ lipClassName = "bg-canvas" }: { lipClassName?: string }
           ))}
         </div>
 
-        <div className="mt-24 grid gap-8 text-sm sm:grid-cols-3 sm:items-end">
+        <div className="mt-16 grid gap-8 text-sm sm:grid-cols-3 sm:items-end">
           <div>
             <p className="eyebrow mb-2 text-inverse-muted">Version</p>
             <p>2026 © TINA</p>
