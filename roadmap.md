@@ -11,7 +11,6 @@
 - [ ] Browser-verify mobile layout of drawer and sub-pages
 - [x] Browser-verify labeled curved transitions across routes, compact menu navigation, and browser history
 - [x] Browser-verify staggered grayscale drawer entry, reverse exit, and link reveal
-- [x] Work page: heading resized to Dennis scale (2 lines) + footer attached; footer proportions and "Get in touch" circle sitting on the hairline (browser-verified desktop + phone)
 
 ## Ready
 - Add TINA's WhatsApp phone number to complete the WhatsApp link (waiting on user)
