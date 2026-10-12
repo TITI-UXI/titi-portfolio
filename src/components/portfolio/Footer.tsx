@@ -152,7 +152,7 @@ export function Footer({ lipClassName = "bg-canvas" }: { lipClassName?: string }
                     href={social.href}
                     target="_blank"
                     rel="noreferrer"
-                    className="block transition-opacity hover:opacity-70"
+                    className="block text-surface-soft transition-colors hover:text-inverse-foreground"
                   >
                     {social.label}
                   </a>
