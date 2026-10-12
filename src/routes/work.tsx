@@ -3,6 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import gsap from "gsap";
 import { AnimatePresence, motion } from "framer-motion";
 import { TransitionLink } from "@/components/portfolio/CurvedTransition";
+import { Footer } from "@/components/portfolio/Footer";
 
 export const Route = createFileRoute("/work")({
   head: () => ({
@@ -107,15 +108,16 @@ function WorkPage() {
   }, [active, view]);
 
   return (
-    <main className="min-h-screen bg-canvas px-4 pb-32 pt-32 text-foreground sm:px-6 sm:pt-40">
+    <>
+      <main className="min-h-screen bg-canvas px-4 pb-32 pt-16 text-foreground sm:px-6 sm:pt-20">
       <div className="mx-auto w-full max-w-7xl">
         <p className="eyebrow text-ink-soft">Work — 2024 / 2026</p>
-        <h1 className="display-xl mt-6 max-w-5xl">
+        <h1 className="max-w-4xl pt-28 pb-12 text-left text-5xl font-normal leading-[1.1] tracking-tight text-foreground md:pt-36 md:text-6xl lg:text-7xl">
           Creating next level digital products
         </h1>
 
         {/* Filters + view toggle */}
-        <div className="mt-14 flex flex-wrap items-center justify-between gap-6">
+        <div className="mt-2 flex flex-wrap items-center justify-between gap-6">
           <div className="flex flex-wrap gap-3" role="group" aria-label="Filter projects">
             {(["All", "Design", "Development"] as const).map((option) => (
               <button
@@ -262,7 +264,9 @@ function WorkPage() {
             Start a project
           </TransitionLink>
         </div>
-      </div>
-    </main>
+        </div>
+      </main>
+      <Footer />
+    </>
   );
 }
