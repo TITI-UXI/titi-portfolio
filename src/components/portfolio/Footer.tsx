@@ -35,12 +35,12 @@ function FillButton({ href, children }: { href: string; children: React.ReactNod
       href={href}
       onMouseEnter={(e) => place(e, 1)}
       onMouseLeave={(e) => place(e, 0)}
-      className="relative flex h-44 w-44 items-center justify-center overflow-hidden rounded-full bg-cta text-center text-lg font-medium text-inverse-foreground md:h-52 md:w-52"
+      className="relative flex h-40 w-40 shrink-0 items-center justify-center overflow-hidden rounded-full bg-cta-accent text-center text-base font-medium text-hero-foreground shadow-2xl transition-transform duration-300 hover:scale-105 md:h-48 md:w-48"
     >
       <span
         ref={fillRef}
         aria-hidden
-        className="pointer-events-none absolute h-[300%] w-[300%] -translate-x-1/2 -translate-y-1/2 scale-0 rounded-full bg-surface-soft"
+        className="pointer-events-none absolute h-[300%] w-[300%] -translate-x-1/2 -translate-y-1/2 scale-0 rounded-full bg-cta-slate"
       />
       <span className="relative">{children}</span>
     </TransitionLink>
@@ -75,7 +75,7 @@ export function Footer({ lipClassName = "bg-canvas" }: { lipClassName?: string }
     <footer
       ref={footerRef}
       id="contact"
-      className="relative overflow-hidden bg-inverse text-inverse-foreground"
+      className="relative flex min-h-[85vh] flex-col justify-between overflow-hidden bg-hero px-8 pb-12 pt-24 text-hero-foreground md:px-16"
     >
       {/* Curved lip of the light page that flattens as you reach the bottom */}
       <div className="pointer-events-none absolute inset-x-0 top-0 z-10">
@@ -85,37 +85,40 @@ export function Footer({ lipClassName = "bg-canvas" }: { lipClassName?: string }
         />
       </div>
 
-      <div className="pt-[14vw]">
-        <VelocityMarquee text="Available for freelance & collaborations — TINA — " />
+      <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-6">
+        <div className="pt-[14vw]">
+          <VelocityMarquee text="Available for freelance & collaborations — TINA — " />
+        </div>
+        <div className="mt-12 flex items-center gap-6">
+          <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-full border border-white/10 shadow-lg md:h-24 md:w-24">
+            <img
+              src="/portrait.jpg"
+              alt="Zahra Alizadeh"
+              className="pointer-events-none h-full w-full select-none object-cover object-[center_20%]"
+            />
+          </div>
+          <h2 className="text-5xl font-normal leading-[1.1] tracking-tight text-hero-foreground md:text-7xl lg:text-8xl">
+            Let's work
+            <br />
+            together
+          </h2>
+          <span aria-hidden className="ml-auto shrink-0 text-3xl text-surface-soft">
+            ↘
+          </span>
+        </div>
       </div>
-      <div className="mx-auto w-full max-w-7xl px-4 pb-10 pt-16 sm:px-6">
-        <div className="flex items-start justify-between gap-6">
-          <div className="flex items-center gap-5 md:gap-8">
-            <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-full border border-white/10 shadow-lg md:h-24 md:w-24">
-              <img
-                src="/portrait.jpg"
-                alt="Zahra Alizadeh"
-                className="pointer-events-none h-full w-full select-none object-cover object-[center_20%]"
-              />
-            </div>
-            <h2 className="text-5xl font-normal leading-[1] tracking-tight md:text-7xl lg:text-8xl">
-              Let's work
-              <br />
-              together
-            </h2>
-          </div>
-          <span aria-hidden className="mt-2 text-3xl text-surface-soft">↘</span>
-        </div>
 
-        <div className="relative mt-20 border-t border-inverse-border md:mt-28">
-          <div className="absolute right-4 top-0 z-10 -translate-y-1/2 sm:right-16">
-            <Magnetic strength={0.45}>
-              <FillButton href="/contact">Get in touch</FillButton>
-            </Magnetic>
-          </div>
+      <div className="relative my-8 flex w-full items-center py-10 md:my-12 md:py-12">
+        <div aria-hidden className="absolute inset-x-0 top-1/2 border-t border-inverse-border" />
+        <div className="relative z-10 ml-auto mr-[15%] shrink-0 md:mr-[18%]">
+          <Magnetic strength={0.45}>
+            <FillButton href="/contact">Get in touch</FillButton>
+          </Magnetic>
         </div>
+      </div>
 
-        <div className="mt-32 flex flex-wrap gap-3 sm:mt-36">
+      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6">
+        <div className="flex flex-wrap gap-3">
           {[
             { label: "titi.uxui@gmail.com", href: "mailto:titi.uxui@gmail.com" },
             { label: "Telegram @titi-uxi", href: "https://t.me/titi_uxi" },
@@ -131,7 +134,7 @@ export function Footer({ lipClassName = "bg-canvas" }: { lipClassName?: string }
           ))}
         </div>
 
-        <div className="mt-24 grid gap-8 text-sm sm:grid-cols-3 sm:items-end">
+        <div className="mt-14 grid gap-8 text-sm sm:grid-cols-3 sm:items-end">
           <div>
             <p className="eyebrow mb-2 text-inverse-muted">Version</p>
             <p>2026 © TINA</p>
