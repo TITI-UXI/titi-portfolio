@@ -90,19 +90,21 @@ export function Footer({ lipClassName = "bg-canvas" }: { lipClassName?: string }
           <VelocityMarquee text="Available for freelance & collaborations — TINA — " />
         </div>
         <div className="mt-12 flex items-center gap-6">
-            <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-full border border-white/10 shadow-lg md:h-24 md:w-24">
-              <img
-                src="/portrait.jpg"
-                alt="Zahra Alizadeh"
-                className="pointer-events-none h-full w-full select-none object-cover object-[center_20%]"
-              />
-            </div>
-            <h2 className="text-5xl font-normal leading-[1.1] tracking-tight text-hero-foreground md:text-7xl lg:text-8xl">
-              Let's work
-              <br />
-              together
-            </h2>
-          <span aria-hidden className="ml-auto shrink-0 text-3xl text-surface-soft">↘</span>
+          <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-full border border-white/10 shadow-lg md:h-24 md:w-24">
+            <img
+              src="/portrait.jpg"
+              alt="Zahra Alizadeh"
+              className="pointer-events-none h-full w-full select-none object-cover object-[center_20%]"
+            />
+          </div>
+          <h2 className="text-5xl font-normal leading-[1.1] tracking-tight text-hero-foreground md:text-7xl lg:text-8xl">
+            Let's work
+            <br />
+            together
+          </h2>
+          <span aria-hidden className="ml-auto shrink-0 text-3xl text-surface-soft">
+            ↘
+          </span>
         </div>
       </div>
 
