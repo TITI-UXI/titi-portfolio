@@ -3,6 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import gsap from "gsap";
 import { AnimatePresence, motion } from "framer-motion";
 import { TransitionLink } from "@/components/portfolio/CurvedTransition";
+import { Footer } from "@/components/portfolio/Footer";
 
 export const Route = createFileRoute("/work")({
   head: () => ({
@@ -107,10 +108,10 @@ function WorkPage() {
   }, [active, view]);
 
   return (
-    <main className="min-h-screen bg-canvas px-4 pb-32 pt-32 text-foreground sm:px-6 sm:pt-40">
-      <div className="mx-auto w-full max-w-7xl">
-        <p className="eyebrow text-ink-soft">Work — 2024 / 2026</p>
-        <h1 className="display-xl mt-6 max-w-5xl">
+    <main className="min-h-screen bg-canvas text-foreground">
+      <div className="mx-auto w-full max-w-7xl px-4 pb-32 sm:px-6">
+        <p className="eyebrow pt-28 text-ink-soft md:pt-36">Work — 2024 / 2026</p>
+        <h1 className="mt-6 max-w-4xl pb-12 text-left text-5xl font-normal leading-[1.08] tracking-tight text-foreground md:text-6xl lg:text-[4.75rem]">
           Creating next level digital products
         </h1>
 
@@ -263,6 +264,7 @@ function WorkPage() {
           </TransitionLink>
         </div>
       </div>
+      <Footer />
     </main>
   );
 }

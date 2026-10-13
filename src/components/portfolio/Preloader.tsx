@@ -16,6 +16,11 @@ export function Preloader() {
     if (typeof window === "undefined") return;
     const overlay = overlayRef.current;
     if (!overlay) return;
+    if (window.sessionStorage.getItem("hasSeenIntro")) {
+      setVisible(false);
+      window.dispatchEvent(new CustomEvent(PRELOADER_COMPLETE_EVENT));
+      return;
+    }
 
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
@@ -26,6 +31,7 @@ export function Preloader() {
     let exitTween: gsap.core.Tween | undefined;
 
     const finish = () => {
+      window.sessionStorage.setItem("hasSeenIntro", "true");
       setProgress(100);
       setGreetingIndex(GREETINGS.length - 1);
       exitTimer = window.setTimeout(() => {
