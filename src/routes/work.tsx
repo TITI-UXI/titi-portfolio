@@ -108,8 +108,8 @@ function WorkPage() {
   }, [active, view]);
 
   return (
-    <main className="min-h-screen bg-canvas px-4 text-foreground sm:px-6">
-      <div className="mx-auto w-full max-w-7xl pb-32">
+    <main className="min-h-screen bg-canvas text-foreground">
+      <div className="mx-auto w-full max-w-7xl px-4 pb-32 sm:px-6">
         <p className="eyebrow pt-28 text-ink-soft md:pt-36">Work — 2024 / 2026</p>
         <h1 className="mt-6 max-w-4xl pb-12 text-left text-5xl font-normal leading-[1.08] tracking-tight text-foreground md:text-6xl lg:text-[4.75rem]">
           Creating next level digital products
