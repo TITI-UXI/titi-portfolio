@@ -10,14 +10,19 @@ export function Preloader() {
   const wordRef = useRef<HTMLSpanElement>(null);
   const [progress, setProgress] = useState(0);
   const [greetingIndex, setGreetingIndex] = useState(0);
-  const [visible, setVisible] = useState(true);
+  // Read sessionStorage synchronously before the initial render so repeat
+  // visits skip the intro with zero flash (no effect-first paint).
+  const hasSeenIntroGreeting = () =>
+    typeof window !== "undefined" &&
+    Boolean(window.sessionStorage.getItem("hasSeenIntroGreeting"));
+  const [hasSeenIntro, setHasSeenIntro] = useState(hasSeenIntroGreeting);
+  const [visible, setVisible] = useState(() => !hasSeenIntroGreeting());
 
   useEffect(() => {
     if (typeof window === "undefined") return;
     const overlay = overlayRef.current;
     if (!overlay) return;
-    if (window.sessionStorage.getItem("hasSeenIntro")) {
-      setVisible(false);
+    if (window.sessionStorage.getItem("hasSeenIntroGreeting")) {
       window.dispatchEvent(new CustomEvent(PRELOADER_COMPLETE_EVENT));
       return;
     }
@@ -31,7 +36,8 @@ export function Preloader() {
     let exitTween: gsap.core.Tween | undefined;
 
     const finish = () => {
-      window.sessionStorage.setItem("hasSeenIntro", "true");
+      window.sessionStorage.setItem("hasSeenIntroGreeting", "true");
+      setHasSeenIntro(true);
       setProgress(100);
       setGreetingIndex(GREETINGS.length - 1);
       exitTimer = window.setTimeout(() => {
